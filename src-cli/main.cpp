@@ -53,20 +53,18 @@ std::string trim(const std::string &str)
 std::vector<std::string> split_csv_line(const std::string &line)
 {
     std::vector<std::string> result;
-    std::stringstream ss(line);
     std::string item;
     bool in_quotes = false;
 
-    while (ss.good())
+    for (char c : line)
     {
-        char c = ss.get();
         if (c == '"')
         {
             in_quotes = !in_quotes;
         }
         else if (c == ',' && !in_quotes)
         {
-            result.push_back(item);
+            result.push_back(trim(item));
             item.clear();
         }
         else
@@ -74,7 +72,7 @@ std::vector<std::string> split_csv_line(const std::string &line)
             item += c;
         }
     }
-    result.push_back(item);
+    result.push_back(trim(item));
     return result;
 }
 
@@ -97,7 +95,7 @@ void read_csv(const std::string &filepath, std::vector<Quote> &quotes)
         std::vector<std::string> fields = split_csv_line(line);
         if (fields.size() == 2)
         {
-            quotes.push_back({trim(fields[0]), trim(fields[1])});
+            quotes.push_back({fields[0], fields[1]});
         }
     }
 
