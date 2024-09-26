@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "ansi.h"
 #include "helpers.h"
 #include "quotes.h"
 
@@ -18,24 +19,14 @@ std::string format_quote(Quote q)
 
 std::string format_styled_quote(const Quote &quote, const std::string &separator, const std::string &color)
 {
-    std::string color_code;
-    if (color == "BrightMagenta")
-    {
-        color_code = "\033[95m";
-    }
-    else if (color == "BrightCyan")
-    {
-        color_code = "\033[96m";
-    }
-    else
-    {
-        color_code = "\033[0m"; // Default color
-    }
+    Color clr = color_from_string(color);
 
-    std::string reset_code = "\033[0m";
     std::string quote_message = " " + quote.text;
     std::string quote_author = "  -- " + quote.author;
-    std::string separator_line = " " + color_code + std::string(separator.length() * quote_message.length(), separator.front()) + reset_code;
+    std::string separator_line = " " + std::string(separator.length() * quote_message.length(), separator.front());
+    quote_message = ansi_color(quote_message, Color::BrightWhite);
+    quote_author = ansi_color(quote_author, Color::BrightBlack);
+    separator_line = ansi_color(separator_line, clr);
 
     std::ostringstream oss;
     oss << "\n"
@@ -87,7 +78,7 @@ int main(int argc, char *argv[])
         }
 
         // Get a random quote and write it to stdout
-        std::cout << format_styled_quote(quotes.get_random(), "=", "BrightCyan") << std::endl;
+        std::cout << format_styled_quote(quotes.get_random(), "=", "Magenta") << std::endl;
     }
     catch (const std::exception &e)
     {
