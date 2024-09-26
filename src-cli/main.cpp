@@ -12,7 +12,7 @@
 /// @return A string fit for outputting to the console
 std::string format_quote(Quote q)
 {
-    return "\"" + q.text + "\"\n  - " + q.author;
+    return "\n\"" + q.text + "\"\n  - " + q.author + "\n";
 }
 
 // ----
