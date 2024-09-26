@@ -16,6 +16,7 @@ class Quotes
 public:
     Quotes() = default;
     void read_csv(const std::string &filepath);
+    void read_json(const std::string &filepath);
     Quote get_random() const;
 
 private:
