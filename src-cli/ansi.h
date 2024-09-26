@@ -15,6 +15,15 @@ enum class Color
     Cyan,
     White = 37,
     Default = 39,
+    BgBlack = 40,
+    BgRed,
+    BgGreen,
+    BgYellow,
+    BgBlue,
+    BgMagenta,
+    BgCyan,
+    BgWhite = 47,
+    BgDefault = 49,
     BrightBlack = 90,
     BrightRed,
     BrightGreen,
@@ -23,7 +32,16 @@ enum class Color
     BrightMagenta,
     BrightCyan,
     BrightWhite,
-    BrightDefault = 99
+    BrightDefault = 99,
+    BgBrightBlack = 100,
+    BgBrightRed,
+    BgBrightGreen,
+    BgBrightYellow,
+    BgBrightBlue,
+    BgBrightMagenta,
+    BgBrightCyan,
+    BgBrightWhite = 107,
+    BgBrightDefault = 109,
 };
 
 // Check if ANSI colors are enabled

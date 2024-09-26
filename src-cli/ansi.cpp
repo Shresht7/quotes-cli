@@ -69,6 +69,24 @@ Color color_from_string(const std::string &str)
         return Color::White;
     else if (str == "Default")
         return Color::Default;
+    else if (str == "BgBlack")
+        return Color::BgBlack;
+    else if (str == "BgRed")
+        return Color::BgRed;
+    else if (str == "BgGreen")
+        return Color::BgGreen;
+    else if (str == "BgYellow")
+        return Color::BgYellow;
+    else if (str == "BgBlue")
+        return Color::BgBlue;
+    else if (str == "BgMagenta")
+        return Color::BgMagenta;
+    else if (str == "BgCyan")
+        return Color::BgCyan;
+    else if (str == "BgWhite")
+        return Color::BgWhite;
+    else if (str == "BgDefault")
+        return Color::BgDefault;
     else if (str == "BrightBlack")
         return Color::BrightBlack;
     else if (str == "BrightRed")
@@ -87,6 +105,24 @@ Color color_from_string(const std::string &str)
         return Color::BrightWhite;
     else if (str == "BrightDefault")
         return Color::BrightDefault;
+    else if (str == "BgBrightBlack")
+        return Color::BgBrightBlack;
+    else if (str == "BgBrightRed")
+        return Color::BgBrightRed;
+    else if (str == "BgBrightGreen")
+        return Color::BgBrightGreen;
+    else if (str == "BgBrightYellow")
+        return Color::BgBrightYellow;
+    else if (str == "BgBrightBlue")
+        return Color::BgBrightBlue;
+    else if (str == "BgBrightMagenta")
+        return Color::BgBrightMagenta;
+    else if (str == "BgBrightCyan")
+        return Color::BgBrightCyan;
+    else if (str == "BgBrightWhite")
+        return Color::BgBrightWhite;
+    else if (str == "BgBrightDefault")
+        return Color::BgBrightDefault;
     else
         throw std::invalid_argument("Unknown color: " + str);
 }

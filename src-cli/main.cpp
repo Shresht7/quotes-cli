@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         }
 
         // Get a random quote and write it to stdout
-        std::cout << format_styled_quote(quotes.get_random(), "=", "Magenta") << std::endl;
+        std::cout << format_styled_quote(quotes.get_random(), "=", "BgWhite") << std::endl;
     }
     catch (const std::exception &e)
     {
