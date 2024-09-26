@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         quotes.read_csv(filepath);
 
         // Get a random quote and write it to stdout
-        std::cout << quotes.get_random() << std::endl;
+        std::cout << format_quote(quotes.get_random()) << std::endl;
     }
     catch (const std::exception &e)
     {
@@ -36,4 +36,12 @@ int main(int argc, char *argv[])
     }
 
     return 0; // Exit with status code 0 indicating success
+}
+
+/// @brief Formats the quote to its appropriate string representation
+/// @param q The quote object with the text and author fields
+/// @return A string fit for outputting to the console
+std::string format_quote(Quote q)
+{
+    return "\"" + q.text + "\"\n  - " + q.author;
 }

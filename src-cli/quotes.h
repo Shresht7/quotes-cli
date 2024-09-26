@@ -16,7 +16,7 @@ class Quotes
 public:
     Quotes() = default;
     void read_csv(const std::string &filepath);
-    std::string get_random() const;
+    Quote get_random() const;
 
 private:
     std::vector<Quote> quotes;

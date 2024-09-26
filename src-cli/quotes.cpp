@@ -36,13 +36,13 @@ void Quotes::read_csv(const std::string &filepath)
 }
 
 /// @brief Retrieve a random quote from the quotes vector
-/// @return A random quote formatted as a string
-std::string Quotes::get_random() const
+/// @return A random quote from the list
+Quote Quotes::get_random() const
 {
     if (quotes.empty())
     {
         throw std::runtime_error("No quotes available.");
     }
     int index = std::rand() % quotes.size();
-    return "\"" + quotes[index].text + "\"\n  - " + quotes[index].author;
+    return quotes[index];
 }
