@@ -32,7 +32,6 @@ void read_csv(const std::string &filepath, std::vector<std::string> &quotes)
 /// @return A random quote as a string
 std::string get_random_quote(const std::vector<std::string> &quotes)
 {
-    std::srand(std::time(nullptr));
     int index = std::rand() % quotes.size();
     return quotes[index];
 }
@@ -48,6 +47,9 @@ int main(int argc, char *argv[])
         std::cerr << "Usage: " << argv[0] << " <filepath>" << std::endl;
         return 1; // Exit with status code 1 indicating an error
     }
+
+    // Seed the random number generator
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
 
     // Obtain the filepath from the command-line arguments
     std::string filepath = argv[1];
