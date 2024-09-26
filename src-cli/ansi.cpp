@@ -14,7 +14,7 @@ const std::string ANSI_RESET = "\x1b[0m";
 bool is_color_enabled()
 {
     const char *no_color = std::getenv(ENV_NO_COLOR);
-    bool is_no_color = no_color != nullptr && std::string(no_color) == "true";
+    bool is_no_color = no_color != nullptr && std::string(no_color) != "";
     return !is_no_color;
 }
 
