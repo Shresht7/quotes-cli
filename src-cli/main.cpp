@@ -16,35 +16,6 @@ struct Quote
     std::string author;
 };
 
-/// @brief Split a line into fields respecting quoted commas
-/// @param line The CSV line to split
-/// @return A vector of strings representing the fields
-std::vector<std::string> split_csv_line(const std::string &line)
-{
-    std::vector<std::string> result;
-    std::string item;
-    bool in_quotes = false;
-
-    for (char c : line)
-    {
-        if (c == '"')
-        {
-            in_quotes = !in_quotes;
-        }
-        else if (c == ',' && !in_quotes)
-        {
-            result.push_back(trim(item));
-            item.clear();
-        }
-        else
-        {
-            item += c;
-        }
-    }
-    result.push_back(trim(item));
-    return result;
-}
-
 /// @brief Read the CSV file and parse the quotes
 /// @param filepath Path to the CSV file containing the quotes
 /// @param quotes The vector to store the quotes data

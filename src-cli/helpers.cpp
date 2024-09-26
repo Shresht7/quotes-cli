@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 #include <cctype>
 
 /// @brief Trim leading and trailing whitespace and quotes from a string
@@ -33,4 +34,33 @@ std::string trim(const std::string &str)
     }
 
     return str.substr(start, end - start);
+}
+
+/// @brief Split a line into fields respecting quoted commas
+/// @param line The CSV line to split
+/// @return A vector of strings representing the fields
+std::vector<std::string> split_csv_line(const std::string &line)
+{
+    std::vector<std::string> result;
+    std::string item;
+    bool in_quotes = false;
+
+    for (char c : line)
+    {
+        if (c == '"')
+        {
+            in_quotes = !in_quotes;
+        }
+        else if (c == ',' && !in_quotes)
+        {
+            result.push_back(trim(item));
+            item.clear();
+        }
+        else
+        {
+            item += c;
+        }
+    }
+    result.push_back(trim(item));
+    return result;
 }
