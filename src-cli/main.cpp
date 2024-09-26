@@ -24,6 +24,37 @@ std::string trim(const std::string &str)
     return str.substr(start, end - start);
 }
 
+/// @brief Split a line into fields respecting quoted commas
+/// @param line The CSV line to split
+/// @return A vector of strings representing the fields
+std::vector<std::string> split_csv_line(const std::string &line)
+{
+    std::vector<std::string> result;
+    std::stringstream ss(line);
+    std::string item;
+    bool in_quotes = false;
+
+    while (ss.good())
+    {
+        char c = ss.get();
+        if (c == '"')
+        {
+            in_quotes = !in_quotes;
+        }
+        else if (c == ',' && !in_quotes)
+        {
+            result.push_back(item);
+            item.clear();
+        }
+        else
+        {
+            item += c;
+        }
+    }
+    result.push_back(item);
+    return result;
+}
+
 /// @brief Read the CSV file and parse the quotes
 /// @param filepath Path to the CSV file containing the quotes
 /// @param quotes The vector to store the quotes data
@@ -40,12 +71,10 @@ void read_csv(const std::string &filepath, std::vector<Quote> &quotes)
     std::string line;
     while (std::getline(file, line))
     {
-        std::stringstream ss(line);
-        std::string quote, author;
-
-        if (std::getline(ss, quote, ',') && std::getline(ss, author))
+        std::vector<std::string> fields = split_csv_line(line);
+        if (fields.size() == 2)
         {
-            quotes.push_back({trim(quote), trim(author)});
+            quotes.push_back({trim(fields[0]), trim(fields[1])});
         }
     }
 
@@ -59,11 +88,11 @@ void read_csv(const std::string &filepath, std::vector<Quote> &quotes)
 
 /// @brief Retrieve a random quote from the quotes vector
 /// @param quotes The vector of quotes
-/// @return A random quote as a string
+/// @return A random quote formatted as a string
 std::string get_random_quote(const std::vector<Quote> &quotes)
 {
     int index = std::rand() % quotes.size();
-    return quotes[index].text + "\n\t - " + quotes[index].author;
+    return "\"" + quotes[index].text + "\"\n  - " + quotes[index].author;
 }
 
 // ----
