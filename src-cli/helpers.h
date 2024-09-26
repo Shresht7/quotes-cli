@@ -14,4 +14,7 @@ std::string trim(const std::string &str);
 /// @return A vector of strings representing the fields
 std::vector<std::string> split_csv_line(const std::string &line);
 
+// Function to extract the file extension from a file path
+std::string get_file_extension(const std::string &filepath);
+
 #endif // HELPERS_H

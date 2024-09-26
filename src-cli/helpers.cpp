@@ -64,3 +64,14 @@ std::vector<std::string> split_csv_line(const std::string &line)
     result.push_back(trim(item));
     return result;
 }
+
+// Function to extract the file extension from a file path
+std::string get_file_extension(const std::string &filepath)
+{
+    size_t last_dot = filepath.find_last_of(".");
+    if (last_dot == std::string::npos)
+    {
+        return ""; // No file extension found
+    }
+    return filepath.substr(last_dot + 1); // Return substring after the last dot
+}
