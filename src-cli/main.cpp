@@ -1,60 +1,6 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <ctime>
-#include <cstdlib>
-#include <stdexcept>
-#include <sstream>
 
-#include "helpers.h"
-
-// Define a struct to store quotes and authors
-struct Quote
-{
-    std::string text;
-    std::string author;
-};
-
-/// @brief Read the CSV file and parse the quotes
-/// @param filepath Path to the CSV file containing the quotes
-/// @param quotes The vector to store the quotes data
-void read_csv(const std::string &filepath, std::vector<Quote> &quotes)
-{
-    std::ifstream file(filepath);
-
-    // Show an error and exit if the file cannot be opened
-    if (!file.is_open())
-    {
-        throw std::runtime_error("Unable to open file");
-    }
-
-    std::string line;
-    while (std::getline(file, line))
-    {
-        std::vector<std::string> fields = split_csv_line(line);
-        if (fields.size() == 2)
-        {
-            quotes.push_back({fields[0], fields[1]});
-        }
-    }
-
-    file.close();
-
-    if (quotes.empty())
-    {
-        throw std::runtime_error("The file is empty or contains no valid quotes.");
-    }
-}
-
-/// @brief Retrieve a random quote from the quotes vector
-/// @param quotes The vector of quotes
-/// @return A random quote formatted as a string
-std::string get_random_quote(const std::vector<Quote> &quotes)
-{
-    int index = std::rand() % quotes.size();
-    return "\"" + quotes[index].text + "\"\n  - " + quotes[index].author;
-}
+#include "quotes.h"
 
 // ----
 // MAIN
@@ -77,11 +23,11 @@ int main(int argc, char *argv[])
         std::string filepath = argv[1];
 
         // Read the Quotes from the CSV file
-        std::vector<Quote> quotes;
-        read_csv(filepath, quotes);
+        Quotes quotes;
+        quotes.read_csv(filepath);
 
         // Get a random quote and write it to stdout
-        std::cout << get_random_quote(quotes) << std::endl;
+        std::cout << quotes.get_random() << std::endl;
     }
     catch (const std::exception &e)
     {

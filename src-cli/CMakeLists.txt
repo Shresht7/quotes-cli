@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add the executable
-add_executable(quotes main.cpp helpers.cpp)
+add_executable(quotes main.cpp quotes.cpp helpers.cpp)
 
 # Include directories
 target_include_directories(quotes PUBLIC "${PROJECT_SOURCE_DIR}/src")
