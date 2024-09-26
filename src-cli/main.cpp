@@ -5,11 +5,29 @@
 #include <ctime>
 #include <cstdlib>
 #include <stdexcept>
+#include <sstream>
+
+// Define a struct to store quotes and authors
+struct Quote
+{
+    std::string text;
+    std::string author;
+};
+
+/// @brief Trim leading and trailing quotes from a string
+/// @param str The string to trim
+/// @return The trimmed string
+std::string trim(const std::string &str)
+{
+    size_t start = str.front() == '"' ? 1 : 0;
+    size_t end = str.back() == '"' ? str.size() - 1 : str.size();
+    return str.substr(start, end - start);
+}
 
 /// @brief Read the CSV file and parse the quotes
 /// @param filepath Path to the CSV file containing the quotes
 /// @param quotes The vector to store the quotes data
-void read_csv(const std::string &filepath, std::vector<std::string> &quotes)
+void read_csv(const std::string &filepath, std::vector<Quote> &quotes)
 {
     std::ifstream file(filepath);
 
@@ -22,7 +40,13 @@ void read_csv(const std::string &filepath, std::vector<std::string> &quotes)
     std::string line;
     while (std::getline(file, line))
     {
-        quotes.push_back(line);
+        std::stringstream ss(line);
+        std::string quote, author;
+
+        if (std::getline(ss, quote, ',') && std::getline(ss, author))
+        {
+            quotes.push_back({trim(quote), trim(author)});
+        }
     }
 
     file.close();
@@ -36,10 +60,10 @@ void read_csv(const std::string &filepath, std::vector<std::string> &quotes)
 /// @brief Retrieve a random quote from the quotes vector
 /// @param quotes The vector of quotes
 /// @return A random quote as a string
-std::string get_random_quote(const std::vector<std::string> &quotes)
+std::string get_random_quote(const std::vector<Quote> &quotes)
 {
     int index = std::rand() % quotes.size();
-    return quotes[index];
+    return quotes[index].text + "\n\t - " + quotes[index].author;
 }
 
 // ----
@@ -63,7 +87,7 @@ int main(int argc, char *argv[])
         std::string filepath = argv[1];
 
         // Read the Quotes from the CSV file
-        std::vector<std::string> quotes;
+        std::vector<Quote> quotes;
         read_csv(filepath, quotes);
 
         // Get a random quote and write it to stdout
