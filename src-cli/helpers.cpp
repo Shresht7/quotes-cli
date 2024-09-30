@@ -2,10 +2,25 @@
 #include <vector>
 #include <cctype>
 
+/// @brief Compares the two strings and returns true if they are the same. (Case-Insensitive)
+/// @return A boolean indicating whether two strings are the same.
+bool match(std::string &a, std::string &b)
+{
+    // Transform to lowercase
+    for (char &c : a)
+    {
+        c = std::tolower(c);
+    }
+    for (char &c : b)
+    {
+        c = std::tolower(c);
+    }
+    return a == b;
+}
+
 /// @brief Trim leading and trailing whitespace and quotes from a string
 /// @param str The string to trim
 /// @return The trimmed string
-
 std::string trim(const std::string &str)
 {
     size_t start = 0;

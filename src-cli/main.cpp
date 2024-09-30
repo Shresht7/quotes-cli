@@ -18,7 +18,7 @@ std::string format_quote(Quote q)
     return "\n\"" + q.text + "\"\n  - " + q.author + "\n";
 }
 
-std::string format_styled_quote(const Quote &quote, const std::string &separator, const std::string &color)
+std::string format_styled_quote(const Quote &quote, const std::string &separator, std::string &color)
 {
     Color clr = color_from_string(color);
 

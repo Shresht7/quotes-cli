@@ -4,6 +4,10 @@
 #include <string>
 #include <vector>
 
+/// @brief Compares the two strings and returns true if they are the same. (Case-Insensitive)
+/// @return A boolean indicating whether two strings are the same.
+bool match(std::string &a, std::string &b);
+
 /// @brief Trim leading and trailing whitespace and quotes from a string
 /// @param str The string to trim
 /// @return The trimmed string

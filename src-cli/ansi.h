@@ -54,6 +54,6 @@ std::string code(Color c);
 std::string ansi_color(const std::string &text, Color color);
 
 // Convert string to color enum
-Color color_from_string(const std::string &color);
+Color color_from_string(std::string &color);
 
 #endif // ANSI_H

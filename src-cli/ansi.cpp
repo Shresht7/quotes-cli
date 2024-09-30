@@ -2,6 +2,7 @@
 #include <stdexcept>
 
 #include "ansi.h"
+#include "helpers.h"
 
 // Environment variable for disabling colors
 const char *ENV_NO_COLOR = "NO_COLOR";
@@ -49,79 +50,79 @@ std::string ansi_color(const std::string &text, Color color)
 /// @brief Parse the ANSI Color from a string
 /// @param str The string to parse
 /// @return The color from the ANSI Color enum
-Color color_from_string(const std::string &str)
+Color color_from_string(std::string &str)
 {
-    if (str == "Black")
+    if (match(str, std::string("Black")))
         return Color::Black;
-    else if (str == "Red")
+    else if (match(str, std::string("Red")))
         return Color::Red;
-    else if (str == "Green")
+    else if (match(str, std::string("Green")))
         return Color::Green;
-    else if (str == "Yellow")
+    else if (match(str, std::string("Yellow")))
         return Color::Yellow;
-    else if (str == "Blue")
+    else if (match(str, std::string("Blue")))
         return Color::Blue;
-    else if (str == "Magenta")
+    else if (match(str, std::string("Magenta")))
         return Color::Magenta;
-    else if (str == "Cyan")
+    else if (match(str, std::string("Cyan")))
         return Color::Cyan;
-    else if (str == "White")
+    else if (match(str, std::string("White")))
         return Color::White;
-    else if (str == "Default")
+    else if (match(str, std::string("Default")))
         return Color::Default;
-    else if (str == "BgBlack")
+    else if (match(str, std::string("BgBlack")))
         return Color::BgBlack;
-    else if (str == "BgRed")
+    else if (match(str, std::string("BgRed")))
         return Color::BgRed;
-    else if (str == "BgGreen")
+    else if (match(str, std::string("BgGreen")))
         return Color::BgGreen;
-    else if (str == "BgYellow")
+    else if (match(str, std::string("BgYellow")))
         return Color::BgYellow;
-    else if (str == "BgBlue")
+    else if (match(str, std::string("BgBlue")))
         return Color::BgBlue;
-    else if (str == "BgMagenta")
+    else if (match(str, std::string("BgMagenta")))
         return Color::BgMagenta;
-    else if (str == "BgCyan")
+    else if (match(str, std::string("BgCyan")))
         return Color::BgCyan;
-    else if (str == "BgWhite")
+    else if (match(str, std::string("BgWhite")))
         return Color::BgWhite;
-    else if (str == "BgDefault")
+    else if (match(str, std::string("BgDefault")))
         return Color::BgDefault;
-    else if (str == "BrightBlack")
+    else if (match(str, std::string("BrightBlack")))
         return Color::BrightBlack;
-    else if (str == "BrightRed")
+    else if (match(str, std::string("BrightRed")))
         return Color::BrightRed;
-    else if (str == "BrightGreen")
+    else if (match(str, std::string("BrightGreen")))
         return Color::BrightGreen;
-    else if (str == "BrightYellow")
+    else if (match(str, std::string("BrightYellow")))
         return Color::BrightYellow;
-    else if (str == "BrightBlue")
+    else if (match(str, std::string("BrightBlue")))
         return Color::BrightBlue;
-    else if (str == "BrightMagenta")
+    else if (match(str, std::string("BrightMagenta")))
         return Color::BrightMagenta;
-    else if (str == "BrightCyan")
+    else if (match(str, std::string("BrightCyan")))
         return Color::BrightCyan;
-    else if (str == "BrightWhite")
+    else if (match(str, std::string("BrightWhite")))
         return Color::BrightWhite;
-    else if (str == "BrightDefault")
+    else if (match(str, std::string("BrightDefault")))
         return Color::BrightDefault;
-    else if (str == "BgBrightBlack")
+    else if (match(str, std::string("BgBrightBlack")))
         return Color::BgBrightBlack;
-    else if (str == "BgBrightRed")
+    else if (match(str, std::string("BgBrightRed")))
         return Color::BgBrightRed;
-    else if (str == "BgBrightGreen")
+    else if (match(str, std::string("BgBrightGreen")))
         return Color::BgBrightGreen;
-    else if (str == "BgBrightYellow")
+    else if (match(str, std::string("BgBrightYellow")))
         return Color::BgBrightYellow;
-    else if (str == "BgBrightBlue")
+    else if (match(str, std::string("BgBrightBlue")))
         return Color::BgBrightBlue;
-    else if (str == "BgBrightMagenta")
+    else if (match(str, std::string("BgBrightMagenta")))
         return Color::BgBrightMagenta;
-    else if (str == "BgBrightCyan")
+    else if (match(str, std::string("BgBrightCyan")))
         return Color::BgBrightCyan;
-    else if (str == "BgBrightWhite")
+    else if (match(str, std::string("BgBrightWhite")))
         return Color::BgBrightWhite;
-    else if (str == "BgBrightDefault")
+    else if (match(str, std::string("BgBrightDefault")))
         return Color::BgBrightDefault;
     else
         throw std::invalid_argument("Unknown color: " + str);
