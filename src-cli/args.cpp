@@ -19,7 +19,7 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [OPTIONS]\n"
                                  "  -c, --color <color>       Color for the separator (default: 'default')\n"
                                  "\n"
                                  "  -h, --help                Show the help message\n"
-                                 "  -V, --version             Show the version number\n"
+                                 "  -v, --version             Show the version number\n"
                                  "\n"
                                  "Examples:\n"
                                  "\n"
@@ -93,7 +93,7 @@ int parse_arguments(int argc, char *argv[], Config &cfg)
             print_help();
             return 1;
         }
-        else if (contains(argv[i], "-V") || contains(argv[i], "--version"))
+        else if (contains(argv[i], "-v") || contains(argv[i], "--version"))
         {
             print_version();
             return 1;
