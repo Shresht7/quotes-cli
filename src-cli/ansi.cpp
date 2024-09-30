@@ -7,6 +7,8 @@
 // Environment variable for disabling colors
 const char *ENV_NO_COLOR = "NO_COLOR";
 
+bool IS_COLOR_ENABLED = true;
+
 /// ANSI Reset Code: Resets the styles to the defaults
 const std::string ANSI_RESET = "\x1b[0m";
 
@@ -16,7 +18,7 @@ bool is_color_enabled()
 {
     const char *no_color = std::getenv(ENV_NO_COLOR);
     bool is_no_color = no_color != nullptr && std::string(no_color) != "";
-    return !is_no_color;
+    return IS_COLOR_ENABLED && !is_no_color;
 }
 
 /// @brief Creates the ANSI code for the given color

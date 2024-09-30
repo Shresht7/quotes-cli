@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "ansi.h"
 #include "args.h"
 
 /// Version number of the application
@@ -16,12 +17,13 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [OPTIONS]\n"
                                  "\n"
                                  "Options:\n"
                                  "\n"
-                                 "  -f, --filepath <path>     Path to the CSV file containing quotes (default: quotes.csv)\n"
-                                 "  -s, --separator <char>    Separator character (default: '=')\n"
-                                 "  -c, --color <color>       Color for the separator (default: 'default')\n"
+                                 "  -f, --filepath <path>       Path to the CSV file containing quotes (default: quotes.csv)\n"
+                                 "  -s, --separator <char>      Separator character (default: '=')\n"
+                                 "  -c, --color <color>         Color for the separator (default: 'default')\n"
+                                 "  --no-color / --plain        Disable ANSI colors\n"
                                  "\n"
-                                 "  -h, --help                Show the help message\n"
-                                 "  -v, --version             Show the version number\n"
+                                 "  -h, --help                  Show the help message\n"
+                                 "  -v, --version               Show the version number\n"
                                  "\n"
                                  "Examples:\n"
                                  "\n"
@@ -72,6 +74,10 @@ int Config::parse_arguments(int argc, char *argv[])
                 std::cerr << "Error: -s/--separator option requires an argument\n";
                 return 1;
             }
+        }
+        else if (contains(argv[i], "--no-color") || contains(argv[i], "--plain"))
+        {
+            IS_COLOR_ENABLED = false;
         }
         else if (contains(argv[i], "-c") || contains(argv[i], "--color"))
         {
