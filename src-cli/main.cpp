@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "args.h"
 #include "ansi.h"
 #include "helpers.h"
 #include "quotes.h"
@@ -44,10 +45,12 @@ std::string format_styled_quote(const Quote &quote, const std::string &separator
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+    Config cfg;
+
+    int parse_result = parse_arguments(argc, argv, cfg);
+    if (parse_result != 0)
     {
-        std::cerr << "Usage: " << argv[0] << " <filepath>" << std::endl;
-        return 1; // Exit with status code 1 indicating an error
+        return parse_result;
     }
 
     // Seed the random number generator
@@ -56,8 +59,7 @@ int main(int argc, char *argv[])
     try
     {
         // Obtain the filepath from the command-line arguments
-        std::string filepath = argv[1];
-        std::string filetype = get_file_extension(filepath);
+        std::string filetype = get_file_extension(cfg.filepath);
 
         // Read the Quotes from the CSV file
         Quotes quotes;
@@ -65,11 +67,11 @@ int main(int argc, char *argv[])
         // Read quotes based on the specified file extension
         if (filetype == "csv")
         {
-            quotes.read_csv(filepath);
+            quotes.read_csv(cfg.filepath);
         }
         else if (filetype == "json")
         {
-            quotes.read_json(filepath);
+            quotes.read_json(cfg.filepath);
         }
         else
         {
