@@ -44,6 +44,7 @@ enum class Color
     BgBrightDefault = 109,
 };
 
+// Dictates whether ANSI colors are enabled
 extern bool IS_COLOR_ENABLED;
 
 // Check if ANSI colors are enabled

@@ -4,13 +4,29 @@
 #include "ansi.h"
 #include "helpers.h"
 
+// ---------
+// ANSI CODE
+// ---------
+
+/// ANSI Reset Code: Resets the styles to the defaults
+const std::string ANSI_RESET = "\x1b[0m";
+
+/// @brief Creates the ANSI code for the given color
+/// @param c The color from the Color enum
+/// @return A string representing the ANSI code for the given color
+std::string code(Color c)
+{
+    return "\x1b[" + std::to_string(static_cast<int>(c)) + "m";
+}
+
+// ----------
+// ANSI COLOR
+// ----------
+
 // Environment variable for disabling colors
 const char *ENV_NO_COLOR = "NO_COLOR";
 
 bool IS_COLOR_ENABLED = true;
-
-/// ANSI Reset Code: Resets the styles to the defaults
-const std::string ANSI_RESET = "\x1b[0m";
 
 /// @brief Returns a boolean indicating whether ANSI colors are enabled or not
 /// @return A boolean indicating whether ANSI colors are enabled or not
@@ -19,14 +35,6 @@ bool is_color_enabled()
     const char *no_color = std::getenv(ENV_NO_COLOR);
     bool is_no_color = no_color != nullptr && std::string(no_color) != "";
     return IS_COLOR_ENABLED && !is_no_color;
-}
-
-/// @brief Creates the ANSI code for the given color
-/// @param c The color from the Color enum
-/// @return A string representing the ANSI code for the given color
-std::string code(Color c)
-{
-    return "\x1b[" + std::to_string(static_cast<int>(c)) + "m";
 }
 
 /// @brief Wraps the given text in the correct ANSI color codes
@@ -44,10 +52,6 @@ std::string ansi_color(const std::string &text, Color color)
         return text;
     }
 }
-
-// -----------
-// FROM STRING
-// -----------
 
 /// @brief Parse the ANSI Color from a string
 /// @param str The string to parse
