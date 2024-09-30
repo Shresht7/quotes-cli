@@ -43,7 +43,7 @@ bool contains(const char *str, const char *sub)
 }
 
 // Default constructor
-Config::Config() : filepath("~\\Data\\quotes.csv"), separator("="), color("Default") {}
+Config::Config() : filepath("~\\Data\\quotes.csv"), separator("="), color("Magenta") {}
 
 // Parse command-line arguments and update the configuration
 int Config::parse_arguments(int argc, char *argv[])
