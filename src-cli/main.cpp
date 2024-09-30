@@ -45,9 +45,8 @@ std::string format_styled_quote(const Quote &quote, const std::string &separator
 
 int main(int argc, char *argv[])
 {
-    Config cfg;
-
-    int parse_result = parse_arguments(argc, argv, cfg);
+    Config *cfg = new Config();
+    int parse_result = cfg->parse_arguments(argc, argv);
     if (parse_result != 0)
     {
         return parse_result;
@@ -59,7 +58,7 @@ int main(int argc, char *argv[])
     try
     {
         // Obtain the filepath from the command-line arguments
-        std::string filetype = get_file_extension(cfg.filepath);
+        std::string filetype = get_file_extension(cfg->filepath);
 
         // Read the Quotes from the CSV file
         Quotes quotes;
@@ -67,11 +66,11 @@ int main(int argc, char *argv[])
         // Read quotes based on the specified file extension
         if (filetype == "csv")
         {
-            quotes.read_csv(cfg.filepath);
+            quotes.read_csv(cfg->filepath);
         }
         else if (filetype == "json")
         {
-            quotes.read_json(cfg.filepath);
+            quotes.read_json(cfg->filepath);
         }
         else
         {
@@ -80,7 +79,7 @@ int main(int argc, char *argv[])
         }
 
         // Get a random quote and write it to stdout
-        std::cout << format_styled_quote(quotes.get_random(), "=", cfg.color) << std::endl;
+        std::cout << format_styled_quote(quotes.get_random(), "=", cfg->color) << std::endl;
     }
     catch (const std::exception &e)
     {

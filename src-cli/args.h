@@ -1,23 +1,25 @@
 #ifndef ARGS_H
 #define ARGS_H
 
-const std::string VERSION;
+#include <string>
 
 void print_version();
 
-const std::string HELP_MESSAGE;
-
 void print_help();
 
-struct Config
+// Configuration struct for CLI
+class Config
 {
+public:
     std::string filepath;
     std::string separator;
     std::string color;
+
+    // Default Constructor
+    Config();
+
+    // Method to parse command-line arguments
+    int parse_arguments(int argc, char *argv[]);
 };
-
-bool contains(const std::string str, const std::string sub);
-
-int parse_arguments(int argc, char *argv[], Config &cfg);
 
 #endif // ARGS_H

@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "args.h"
+
 /// Version number of the application
 const std::string VERSION = "v0.1.0";
 
@@ -31,14 +33,6 @@ void print_help()
     std::cout << HELP_MESSAGE << std::endl;
 }
 
-// Configuration struct for CLI
-struct Config
-{
-    std::string filepath = "quotes.csv"; // Default path to the CSV file
-    std::string separator = "=";         // Default separator
-    std::string color = "default";       // Default color
-};
-
 // Helper function to check if a string contains another string
 // TODO: Change the contains function to take in variadic arguments
 bool contains(const char *str, const char *sub)
@@ -46,8 +40,11 @@ bool contains(const char *str, const char *sub)
     return std::strstr(str, sub) != nullptr;
 }
 
+// Default constructor
+Config::Config() : filepath("quotes.csv"), separator("="), color("Default") {}
+
 // Parse command-line arguments and update the configuration
-int parse_arguments(int argc, char *argv[], Config &cfg)
+int Config::parse_arguments(int argc, char *argv[])
 {
     for (int i = 1; i < argc; ++i)
     {
@@ -55,7 +52,7 @@ int parse_arguments(int argc, char *argv[], Config &cfg)
         {
             if (i + 1 < argc)
             {
-                cfg.filepath = argv[++i];
+                filepath = argv[++i];
             }
             else
             {
@@ -68,7 +65,7 @@ int parse_arguments(int argc, char *argv[], Config &cfg)
         {
             if (i + 1 < argc)
             {
-                cfg.separator = argv[++i];
+                separator = argv[++i];
             }
             else
             {
@@ -80,7 +77,7 @@ int parse_arguments(int argc, char *argv[], Config &cfg)
         {
             if (i + 1 < argc)
             {
-                cfg.color = argv[++i];
+                color = argv[++i];
             }
             else
             {
