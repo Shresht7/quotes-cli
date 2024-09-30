@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
     try
     {
         // Obtain the filepath from the command-line arguments
+        std::filesystem::path filepath = resolve_path(cfg->filepath);
         std::string filetype = get_file_extension(cfg->filepath);
 
         // Read the Quotes from the CSV file
@@ -66,11 +67,11 @@ int main(int argc, char *argv[])
         // Read quotes based on the specified file extension
         if (filetype == "csv")
         {
-            quotes.read_csv(cfg->filepath);
+            quotes.read_csv(filepath.string());
         }
         else if (filetype == "json")
         {
-            quotes.read_json(cfg->filepath);
+            quotes.read_json(filepath.string());
         }
         else
         {

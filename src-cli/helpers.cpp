@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <cctype>
+#include <filesystem>
 
 /// @brief Compares the two strings and returns true if they are the same. (Case-Insensitive)
 /// @return A boolean indicating whether two strings are the same.
@@ -78,6 +79,44 @@ std::vector<std::string> split_csv_line(const std::string &line)
     }
     result.push_back(trim(item));
     return result;
+}
+
+/// Get the location of the HOME or USERPROFILE from the environment variables
+const char *get_home()
+{
+    const char *home = std::getenv("HOME");
+    if (!home)
+    {
+        const char *userprofile = std::getenv("USERPROFILE");
+        if (!userprofile)
+        {
+            throw std::runtime_error("HOME/USERPROFILE Environment Variable not set");
+        }
+        return userprofile;
+    }
+    return home;
+}
+
+/// @brief Resolves the given string as a filesystem path
+/// @param path The path string to resolve
+/// @return The actual filesystem path
+std::filesystem::path resolve_path(const std::string &path)
+{
+    // Parse the string as a filesystem path
+    std::filesystem::path Location{path};
+
+    // If the location is empty or is a regular absolute or relative path...
+    if (Location.empty() || Location.string()[0] != '~')
+    {
+        return path; // ... return as is
+    }
+    Location = Location.string().substr(1);
+
+    // Get the HOME
+    const char *home = get_home();
+
+    // Construct the full-path and return it
+    return std::filesystem::path(home) / Location.relative_path();
 }
 
 // Function to extract the file extension from a file path
