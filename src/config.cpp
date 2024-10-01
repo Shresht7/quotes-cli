@@ -36,11 +36,10 @@ void print_help()
     std::cout << HELP_MESSAGE << std::endl;
 }
 
-// Helper function to check if a string contains another string
-// TODO: Change the contains function to take in variadic arguments
-bool contains(const char *str, const char *sub)
+/// @brief function to check if a string starts with the given prefix
+bool contains(const char *str, const char *prefix)
 {
-    return std::strstr(str, sub) != nullptr;
+    return std::strncmp(str, prefix, std::strlen(prefix)) == 0;
 }
 
 // Default constructor
