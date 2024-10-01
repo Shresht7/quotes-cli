@@ -14,6 +14,7 @@ public:
     std::string filepath;
     std::string separator;
     std::string color;
+    bool plain;
 
     // Default Constructor
     Config();

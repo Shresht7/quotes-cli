@@ -80,7 +80,14 @@ int main(int argc, char *argv[])
         }
 
         // Get a random quote and write it to stdout
-        std::cout << format_styled_quote(quotes.get_random(), cfg->separator, cfg->color) << std::endl;
+        if (cfg->plain)
+        {
+            std::cout << format_quote(quotes.get_random()) << std::endl;
+        }
+        else
+        {
+            std::cout << format_styled_quote(quotes.get_random(), cfg->separator, cfg->color) << std::endl;
+        }
     }
     catch (const std::exception &e)
     {

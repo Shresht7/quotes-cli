@@ -20,7 +20,7 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [OPTIONS]\n"
                                  "  -f, --filepath <path>       Path to the CSV file containing quotes (default: quotes.csv)\n"
                                  "  -s, --separator <char>      Separator character (default: '=')\n"
                                  "  -c, --color <color>         Color for the separator (default: 'default')\n"
-                                 "  --no-color / --plain        Disable ANSI colors\n"
+                                 "  --no-color / --plain        Plain output\n"
                                  "\n"
                                  "  -h, --help                  Show the help message\n"
                                  "  -v, --version               Show the version number\n"
@@ -43,7 +43,7 @@ bool contains(const char *str, const char *sub)
 }
 
 // Default constructor
-Config::Config() : filepath("~\\Data\\quotes.csv"), separator("="), color("Magenta") {}
+Config::Config() : filepath("~\\Data\\quotes.csv"), separator("="), color("Magenta"), plain(false) {}
 
 // Parse command-line arguments and update the configuration
 int Config::parse_arguments(int argc, char *argv[])
@@ -78,6 +78,7 @@ int Config::parse_arguments(int argc, char *argv[])
         else if (contains(argv[i], "--no-color") || contains(argv[i], "--plain"))
         {
             IS_COLOR_ENABLED = false;
+            plain = true;
         }
         else if (contains(argv[i], "-c") || contains(argv[i], "--color"))
         {
