@@ -10,6 +10,27 @@ using json = nlohmann::json;
 #include "helpers.h"
 #include "quotes.h"
 
+void Quotes::read_file(const std::string &filepath)
+{
+    // Resolve the filepath from the given string
+    std::filesystem::path path = resolve_path(filepath);
+    std::string filetype = get_file_extension(filepath);
+
+    // Read the file with the appropriate reader
+    if (filetype == "csv")
+    {
+        read_csv(path.string());
+    }
+    else if (filetype == "json")
+    {
+        read_json(path.string());
+    }
+    else
+    {
+        throw std::runtime_error("Unsupported file type: " + path.string());
+    }
+}
+
 void Quotes::read_csv(const std::string &filepath)
 {
     std::ifstream file(filepath);
