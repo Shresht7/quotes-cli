@@ -1,7 +1,9 @@
 #include <iostream>
+#include <sstream>
 
 #include "ansi.h"
 #include "args.h"
+#include "helpers.h"
 
 /// Version number of the application
 const std::string VERSION = "v0.1.0";
@@ -123,4 +125,43 @@ int Config::parse_arguments(int argc, char *argv[])
         }
     }
     return 0;
+}
+
+// ------------
+// FORMAT QUOTE
+// ------------
+
+/// @brief Formats the quote to its appropriate string representation
+/// @param q The quote object with the text and author fields
+/// @return A string fit for outputting to the console
+std::string Config::format_quote(Quote q)
+{
+    std::ostringstream oss;
+
+    oss << repeat("\n", margin)
+        << "\"" + q.text + "\"\n - " + q.author
+        << repeat("\n", margin);
+
+    return oss.str();
+}
+
+std::string Config::format_styled_quote(const Quote &quote)
+{
+    Color clr = color_from_string(color);
+
+    std::string quote_message = " " + quote.text;
+    std::string quote_author = "  -- " + quote.author;
+    std::string border_line = " " + std::string(border.length() * quote_message.length(), border.front());
+    quote_message = ansi_color(quote_message, Color::BrightWhite);
+    quote_author = ansi_color(quote_author, Color::BrightBlack);
+    border_line = ansi_color(border_line, clr);
+
+    std::ostringstream oss;
+    oss << repeat("\n", margin)
+        << border_line << "\n"
+        << quote_message << "\n"
+        << quote_author << "\n"
+        << border_line << repeat("\n", margin);
+
+    return oss.str();
 }

@@ -2,6 +2,7 @@
 #define ARGS_H
 
 #include <string>
+#include "quotes.h"
 
 void print_version();
 
@@ -22,6 +23,10 @@ public:
 
     // Method to parse command-line arguments
     int parse_arguments(int argc, char *argv[]);
+
+    std::string format_quote(Quote q);
+
+    std::string format_styled_quote(const Quote &quote);
 };
 
 #endif // ARGS_H
