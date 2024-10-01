@@ -96,7 +96,7 @@ int Config::parse_arguments(int argc, char *argv[])
         {
             if (i + 1 < argc)
             {
-                margin = atoi(argv[++i]);
+                margin = std::stoi(argv[++i]);
             }
             else
             {
