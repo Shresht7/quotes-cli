@@ -5,6 +5,7 @@
 #include "ansi.h"
 #include "helpers.h"
 #include "quotes.h"
+#include "commands.h"
 
 // ----
 // MAIN
@@ -22,38 +23,25 @@ int main(int argc, char *argv[])
     // Seed the random number generator
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
-    std::optional<std::string> subcommand = cfg->get_positional_argument(0);
-
-    if (subcommand)
-    {
-        std::cout << subcommand.value() << std::endl;
-    }
-    else
-    {
-        std::cout << "Absolutely Nothing" << std::endl;
-    }
+    std::optional<std::string> subcommand = cfg->get_positional_argument(0).value_or("random");
 
     try
     {
-        // Read the Quotes from the CSV file
-        Quotes quotes;
-        quotes.read_file(cfg->filepath);
-
-        // If the output is being redirected, change the format
-        if (is_output_redirected())
+        if (subcommand == "random")
         {
-            IS_COLOR_ENABLED = false;
-            cfg->margin = 0;
+            show_random_quote(*cfg);
         }
-
-        // Get a random quote and write it to stdout
-        if (cfg->plain)
+        else if (subcommand == "help")
         {
-            std::cout << cfg->format_quote(quotes.get_random()) << std::endl;
+            print_help();
+        }
+        else if (subcommand == "version")
+        {
+            print_version();
         }
         else
         {
-            std::cout << cfg->format_styled_quote(quotes.get_random()) << std::endl;
+            print_help();
         }
     }
     catch (const std::exception &e)
