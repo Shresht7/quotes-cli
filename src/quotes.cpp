@@ -10,6 +10,25 @@ using json = nlohmann::json;
 #include "helpers.h"
 #include "quotes.h"
 
+Quote Quotes::get(unsigned int n)
+{
+    if (n > quotes.size())
+    {
+        throw std::runtime_error("Index out of bounds: " + n);
+    }
+    return quotes[n];
+}
+
+Quote Quotes::get_random() const
+{
+    if (quotes.empty())
+    {
+        throw std::runtime_error("No quotes available!");
+    }
+    int index = std::rand() % quotes.size();
+    return quotes[index];
+}
+
 void Quotes::read_file(const std::string &filepath)
 {
     // Resolve the filepath from the given string
@@ -96,14 +115,4 @@ void Quotes::read_json(const std::string &filepath)
     {
         throw std::runtime_error("The JSON file contains no valid quotes: " + filepath);
     }
-}
-
-Quote Quotes::get_random() const
-{
-    if (quotes.empty())
-    {
-        throw std::runtime_error("No quotes available!");
-    }
-    int index = std::rand() % quotes.size();
-    return quotes[index];
 }

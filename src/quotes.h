@@ -28,13 +28,18 @@ private:
 public:
     Quotes() = default;
 
-    /// @brief Reads the given file to parse the quotes
-    /// @param filepath The path to the CSV or JSON file containing the quotes
-    void read_file(const std::string &filepath);
+    /// @brief Retrieves a single quote from the vector
+    /// @param n The index of the quote
+    /// @return A single quote from the list of quotes
+    Quote get(unsigned int n);
 
     /// @brief Retrieves a random quote from the vector
     /// @return A random quote from the list of quotes
     Quote get_random() const;
+
+    /// @brief Reads the given file to parse the quotes
+    /// @param filepath The path to the CSV or JSON file containing the quotes
+    void read_file(const std::string &filepath);
 };
 
 #endif // QUOTES_H
