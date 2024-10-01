@@ -62,9 +62,17 @@ void Quotes::read_csv(const std::string &filepath)
     }
 
     // Read CSV line and parse the quote
+    bool header_skipped = false;
     std::string line;
     while (std::getline(file, line))
     {
+        // Skip the first line of the CSV
+        if (!header_skipped)
+        {
+            header_skipped = true;
+            continue;
+        }
+
         std::vector<std::string> fields = split_csv_line(line);
         if (fields.size() == 2)
         {
