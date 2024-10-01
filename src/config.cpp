@@ -61,9 +61,8 @@ int Config::parse_arguments(int argc, char *argv[])
             }
             else
             {
-                // TODO: Throw error instead
                 std::cerr << "Error: -f/--filepath option requires an argument\n";
-                return 1;
+                return EXIT_FAILURE;
             }
         }
         else if (contains(argv[i], "-b") || contains(argv[i], "--border"))
@@ -75,7 +74,7 @@ int Config::parse_arguments(int argc, char *argv[])
             else
             {
                 std::cerr << "Error: -b/--border option requires an argument\n";
-                return 1;
+                return EXIT_FAILURE;
             }
         }
         else if (contains(argv[i], "--no-color") || contains(argv[i], "--plain"))
@@ -92,7 +91,7 @@ int Config::parse_arguments(int argc, char *argv[])
             else
             {
                 std::cerr << "Error: -c/--color option requires an argument\n";
-                return 1;
+                return EXIT_FAILURE;
             }
         }
         else if (contains(argv[i], "-m") || contains(argv[i], "--margin"))
@@ -104,25 +103,25 @@ int Config::parse_arguments(int argc, char *argv[])
             else
             {
                 std::cerr << "Error: -m/--margin option requires an argument\n";
-                return 1;
+                return EXIT_FAILURE;
             }
         }
         else if (contains(argv[i], "-h") || contains(argv[i], "--help"))
         {
             print_help();
-            return 1;
+            return EXIT_FAILURE;
         }
         else if (contains(argv[i], "-v") || contains(argv[i], "--version"))
         {
             print_version();
-            return 1;
+            return EXIT_FAILURE;
         }
         else if (contains(argv[i], "-"))
         {
             // At this point, this is an unrecognized flag/option
-            std::cerr << "Unknown option: " << argv[i] << "\n";
+            std::cerr << "Unknown option: " << argv[i] << std::endl;
             print_help();
-            return 1;
+            return EXIT_FAILURE;
         }
         else
         {
@@ -130,7 +129,7 @@ int Config::parse_arguments(int argc, char *argv[])
             args.push_back(argv[i]);
         }
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 std::optional<std::string> Config::get_positional_argument(unsigned int n)

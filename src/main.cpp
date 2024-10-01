@@ -13,17 +13,20 @@
 
 int main(int argc, char *argv[])
 {
+    // Instantiate the Configuration
     Config *cfg = new Config();
+
+    // Parse the command-line arguments
     int parse_result = cfg->parse_arguments(argc, argv);
-    if (parse_result != 0)
+    if (parse_result == EXIT_FAILURE)
     {
         return parse_result;
     }
 
-    std::optional<std::string> subcommand = cfg->get_positional_argument(0).value_or("random");
-
+    // Run the command-handler
     try
     {
+        std::optional<std::string> subcommand = cfg->get_positional_argument(0).value_or("random");
         if (subcommand == "random")
         {
             show_random_quote(*cfg);
@@ -42,14 +45,15 @@ int main(int argc, char *argv[])
         }
         else
         {
+            std::cerr << "Unknown subcommand: " << subcommand.value() << std::endl;
             print_help();
         }
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << std::endl;
-        return 1; // Exit with status code 1 indicating failure
+        return EXIT_FAILURE;
     }
 
-    return 0; // Exit with status code 0 indicating success
+    return EXIT_SUCCESS;
 }
