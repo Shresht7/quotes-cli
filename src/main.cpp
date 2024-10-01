@@ -20,9 +20,6 @@ int main(int argc, char *argv[])
         return parse_result;
     }
 
-    // Seed the random number generator
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
-
     std::optional<std::string> subcommand = cfg->get_positional_argument(0).value_or("random");
 
     try

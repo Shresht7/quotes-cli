@@ -7,6 +7,9 @@
 
 void show_random_quote(Config &cfg)
 {
+    // Seed the random number generator
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+
     // Read the Quotes from the CSV file
     Quotes quotes;
     quotes.read_file(cfg.filepath);
