@@ -29,6 +29,7 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [SUBCOMMAND] [OPTIONS]\n"
                                  "  -b, --border <char>          Border character (default: '=')\n"
                                  "  --border-color <color>       Color for the border (default: 'default')\n"
                                  "  -m, --margin <number>        The number of lines to leave as margin (default: 1)\n"
+                                 "  --no-borders                 Disables borders\n"
                                  "  --no-color / --plain         Plain output\n"
                                  "\n"
                                  "  -h, --help                   Show the help message\n"
@@ -51,7 +52,16 @@ bool contains(const char *str, const char *prefix)
 }
 
 // Default constructor
-Config::Config() : filepath("~\\Data\\quotes.csv"), border("="), margin(1), color("BrightWhite"), author_color("BrightBlack"), border_color("Magenta"), plain(false) {}
+Config::Config() : filepath("~\\Data\\quotes.csv"),
+                   border("="),
+                   margin(1),
+                   color("BrightWhite"),
+                   author_color("BrightBlack"),
+                   border_color("Magenta"),
+                   no_borders(false),
+                   plain(false)
+{
+}
 
 // Parse command-line arguments and update the configuration
 int Config::parse_arguments(int argc, char *argv[])
@@ -75,6 +85,10 @@ int Config::parse_arguments(int argc, char *argv[])
             if (i + 1 < argc)
             {
                 border = argv[++i];
+                if (border == "" || border == "none")
+                {
+                    no_borders = true;
+                }
             }
             else
             {
@@ -82,9 +96,14 @@ int Config::parse_arguments(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
         }
+        else if (contains(argv[i], "--no-borders"))
+        {
+            no_borders = true;
+        }
         else if (contains(argv[i], "--no-color") || contains(argv[i], "--plain"))
         {
             IS_COLOR_ENABLED = false;
+            no_borders = true;
             plain = true;
         }
         else if (contains(argv[i], "-c") || contains(argv[i], "--color"))
@@ -193,17 +212,33 @@ std::string Config::format_styled_quote(const Quote &quote)
 {
     std::string quote_message = " " + quote.text;
     std::string quote_author = "  -- " + quote.author;
-    std::string border_line = " " + std::string(border.length() * quote_message.length(), border.front());
     quote_message = ansi_color(quote_message, color_from_string(color));
     quote_author = ansi_color(quote_author, color_from_string(author_color));
-    border_line = ansi_color(border_line, color_from_string(border_color));
+
+    std::string border_line = "";
+    if (!no_borders)
+    {
+        border_line = " " + std::string(border.length() * quote_message.length(), border.front());
+        border_line = ansi_color(border_line, color_from_string(border_color));
+    }
 
     std::ostringstream oss;
-    oss << repeat("\n", margin)
-        << border_line << "\n"
-        << quote_message << "\n"
-        << quote_author << "\n"
-        << border_line << repeat("\n", margin);
+    oss << repeat("\n", margin);
+
+    if (!no_borders)
+    {
+        oss << border_line << "\n";
+    }
+    oss << quote_message << "\n"
+        << quote_author;
+
+    if (!no_borders)
+    {
+        oss << "\n"
+            << border_line;
+    }
+
+    oss << repeat("\n", margin);
 
     return oss.str();
 }

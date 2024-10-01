@@ -37,6 +37,9 @@ public:
     /// @brief The number of blank lines before and after the output
     unsigned int margin;
 
+    /// @brief Indicates whether to draw borders or not
+    bool no_borders;
+
     /// @brief Indicates if the output should be plain and simple
     bool plain;
 
