@@ -31,6 +31,10 @@ int main(int argc, char *argv[])
         {
             show_random_quote(*cfg);
         }
+        else if (subcommand == "get")
+        {
+            get_quote(*cfg);
+        }
         else if (subcommand == "help")
         {
             print_help();

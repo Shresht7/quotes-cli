@@ -5,4 +5,6 @@
 
 void show_random_quote(Config &cfg);
 
+void get_quote(Config &cfg);
+
 #endif // COMMANDS_H
