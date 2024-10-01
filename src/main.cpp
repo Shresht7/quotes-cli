@@ -1,5 +1,6 @@
 #include <iostream>
 #include <optional>
+#include <memory>
 
 #include "config.h"
 #include "ansi.h"
@@ -14,7 +15,7 @@
 int main(int argc, char *argv[])
 {
     // Instantiate the Configuration
-    Config *cfg = new Config();
+    auto cfg = std::make_unique<Config>();
 
     // Parse the command-line arguments
     int parse_result = cfg->parse_arguments(argc, argv);
@@ -26,7 +27,7 @@ int main(int argc, char *argv[])
     // Run the command-handler
     try
     {
-        std::optional<std::string> subcommand = cfg->get_positional_argument(0).value_or("random");
+        std::string subcommand = cfg->get_positional_argument(0).value_or("random");
         if (subcommand == "random")
         {
             show_random_quote(*cfg);
@@ -45,13 +46,13 @@ int main(int argc, char *argv[])
         }
         else
         {
-            std::cerr << "Unknown subcommand: " << subcommand.value() << std::endl;
+            std::cerr << "Unknown subcommand: " << subcommand << std::endl;
             print_help();
         }
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
         return EXIT_FAILURE;
     }
 
