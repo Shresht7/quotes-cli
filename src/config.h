@@ -22,11 +22,17 @@ public:
     /// @brief The path to the source file containing the quotes
     std::string filepath;
 
+    /// @brief The text color
+    std::string color;
+
+    /// @brief The color for the author
+    std::string author_color;
+
     /// @brief The style of borders
     std::string border;
 
     /// @brief The border color
-    std::string color;
+    std::string border_color;
 
     /// @brief The number of blank lines before and after the output
     unsigned int margin;
