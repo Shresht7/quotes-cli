@@ -2,7 +2,7 @@
 #include <sstream>
 
 #include "ansi.h"
-#include "args.h"
+#include "config.h"
 #include "helpers.h"
 
 /// Version number of the application

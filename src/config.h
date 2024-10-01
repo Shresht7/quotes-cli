@@ -1,5 +1,5 @@
-#ifndef ARGS_H
-#define ARGS_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include <string>
 #include <optional>
@@ -40,4 +40,4 @@ public:
     std::string format_styled_quote(const Quote &quote);
 };
 
-#endif // ARGS_H
+#endif // CONFIG_H

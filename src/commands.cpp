@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "args.h"
+#include "config.h"
 #include "ansi.h"
 #include "helpers.h"
 #include "quotes.h"

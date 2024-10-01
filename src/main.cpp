@@ -1,7 +1,7 @@
 #include <iostream>
 #include <optional>
 
-#include "args.h"
+#include "config.h"
 #include "ansi.h"
 #include "helpers.h"
 #include "quotes.h"

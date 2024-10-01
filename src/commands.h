@@ -1,7 +1,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-#include "args.h"
+#include "config.h"
 
 void show_random_quote(Config &cfg);
 
