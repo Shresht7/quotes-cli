@@ -33,14 +33,16 @@ void Quotes::read_file(const std::string &filepath)
 
 void Quotes::read_csv(const std::string &filepath)
 {
+    // Instantiate a file stream
     std::ifstream file(filepath);
 
     // Show an error and exit if the file cannot be opened
     if (!file.is_open())
     {
-        throw std::runtime_error("Unable to open file");
+        throw std::runtime_error("Unable to open CSV file: " + filepath);
     }
 
+    // Read CSV line and parse the quote
     std::string line;
     while (std::getline(file, line))
     {
@@ -51,25 +53,32 @@ void Quotes::read_csv(const std::string &filepath)
         }
     }
 
+    // Close the file when done
     file.close();
 
+    // Throw an error if no quotes were parsed
     if (quotes.empty())
     {
-        throw std::runtime_error("The file is empty or contains no valid quotes.");
+        throw std::runtime_error("The file is empty or contains no valid quotes: " + filepath);
     }
 }
 
 void Quotes::read_json(const std::string &filepath)
 {
+    // Instantiate a file stream
     std::ifstream file(filepath);
 
+    // Show an error and exit if the file cannot be opened
     if (!file.is_open())
     {
-        throw std::runtime_error("Unable to open JSON file");
+        throw std::runtime_error("Unable to open JSON file: " + filepath);
     }
 
+    // Read the JSON file parse the quotes
     json j;
     file >> j; // Parse the JSON data into a json object
+
+    // Close the file when done
     file.close();
 
     // Assuming the JSON structure is an array of objects with "quote" and "author"
@@ -82,9 +91,10 @@ void Quotes::read_json(const std::string &filepath)
         }
     }
 
+    // Throw an error if no quotes were parsed
     if (quotes.empty())
     {
-        throw std::runtime_error("The JSON file contains no valid quotes.");
+        throw std::runtime_error("The JSON file contains no valid quotes: " + filepath);
     }
 }
 
@@ -92,7 +102,7 @@ Quote Quotes::get_random() const
 {
     if (quotes.empty())
     {
-        throw std::runtime_error("No quotes available.");
+        throw std::runtime_error("No quotes available!");
     }
     int index = std::rand() % quotes.size();
     return quotes[index];
