@@ -10,8 +10,6 @@ using json = nlohmann::json;
 #include "helpers.h"
 #include "quotes.h"
 
-/// @brief Read the CSV file and parse the quotes
-/// @param filepath Path to the CSV file containing the quotes
 void Quotes::read_csv(const std::string &filepath)
 {
     std::ifstream file(filepath);
@@ -40,20 +38,6 @@ void Quotes::read_csv(const std::string &filepath)
     }
 }
 
-/// @brief Retrieve a random quote from the quotes vector
-/// @return A random quote from the list
-Quote Quotes::get_random() const
-{
-    if (quotes.empty())
-    {
-        throw std::runtime_error("No quotes available.");
-    }
-    int index = std::rand() % quotes.size();
-    return quotes[index];
-}
-
-/// @brief Read the JSON file and parse the quotes
-/// @param filepath Path to the JSON file containing the quotes
 void Quotes::read_json(const std::string &filepath)
 {
     std::ifstream file(filepath);
@@ -81,4 +65,14 @@ void Quotes::read_json(const std::string &filepath)
     {
         throw std::runtime_error("The JSON file contains no valid quotes.");
     }
+}
+
+Quote Quotes::get_random() const
+{
+    if (quotes.empty())
+    {
+        throw std::runtime_error("No quotes available.");
+    }
+    int index = std::rand() % quotes.size();
+    return quotes[index];
 }

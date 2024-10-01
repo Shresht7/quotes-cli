@@ -13,14 +13,24 @@ struct Quote
 
 class Quotes
 {
+private:
+    /// Vector to hold all the quotes
+    std::vector<Quote> quotes;
+
 public:
     Quotes() = default;
-    void read_csv(const std::string &filepath);
-    void read_json(const std::string &filepath);
-    Quote get_random() const;
 
-private:
-    std::vector<Quote> quotes;
+    /// @brief Read the CSV file and parse the quotes
+    /// @param filepath Path to the CSV file containing the quotes
+    void read_csv(const std::string &filepath);
+
+    /// @brief Read the JSON file and parse the quotes
+    /// @param filepath Path to the JSON file containing the quotes
+    void read_json(const std::string &filepath);
+
+    /// @brief Retrieves a random quote from the vector
+    /// @return A random quote from the list of quotes
+    Quote get_random() const;
 };
 
 #endif // QUOTES_H
