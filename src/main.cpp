@@ -45,6 +45,13 @@ int main(int argc, char *argv[])
             return 1;
         }
 
+        // If the output is being redirected, change the format
+        if (is_output_redirected())
+        {
+            IS_COLOR_ENABLED = false;
+            cfg->margin = 0;
+        }
+
         // Get a random quote and write it to stdout
         if (cfg->plain)
         {

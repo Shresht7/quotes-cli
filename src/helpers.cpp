@@ -3,6 +3,12 @@
 #include <cctype>
 #include <filesystem>
 
+#ifdef _WIN32
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
+
 /// @brief Compares the two strings and returns true if they are the same. (Case-Insensitive)
 /// @return A boolean indicating whether two strings are the same.
 bool match(std::string &a, std::string &b)
@@ -143,4 +149,15 @@ std::string get_file_extension(const std::string &filepath)
         return ""; // No file extension found
     }
     return filepath.substr(last_dot + 1); // Return substring after the last dot
+}
+
+/// @brief Determine if the standard output is being redirected somewhere
+/// @return A boolean indicating true if STDOUT is being redirected, or false if outputting to the screen
+bool is_output_redirected()
+{
+#ifdef _WIN32
+    return isatty(_fileno(stdout)) == 0;
+#else
+    return isatty(fileno(stdout)) == 0;
+#endif
 }

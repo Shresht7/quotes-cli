@@ -33,4 +33,8 @@ std::filesystem::path resolve_path(const std::string &path);
 // Function to extract the file extension from a file path
 std::string get_file_extension(const std::string &filepath);
 
+/// @brief Determine if the standard output is being redirected somewhere
+/// @return A boolean indicating true if STDOUT is being redirected, or false if outputting to the screen
+bool is_output_redirected();
+
 #endif // HELPERS_H
