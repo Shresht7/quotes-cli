@@ -117,14 +117,29 @@ int Config::parse_arguments(int argc, char *argv[])
             print_version();
             return 1;
         }
-        else
+        else if (contains(argv[i], "-"))
         {
+            // At this point, this is an unrecognized flag/option
             std::cerr << "Unknown option: " << argv[i] << "\n";
             print_help();
             return 1;
         }
+        else
+        {
+            // If not an option/flag, treat it as an positional argument
+            args.push_back(argv[i]);
+        }
     }
     return 0;
+}
+
+std::optional<std::string> Config::get_positional_argument(unsigned int n)
+{
+    if (n >= args.size())
+    {
+        return std::nullopt;
+    }
+    return args[n];
 }
 
 // ------------

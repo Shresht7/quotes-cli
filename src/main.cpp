@@ -1,4 +1,5 @@
 #include <iostream>
+#include <optional>
 
 #include "args.h"
 #include "ansi.h"
@@ -20,6 +21,17 @@ int main(int argc, char *argv[])
 
     // Seed the random number generator
     std::srand(static_cast<unsigned>(std::time(nullptr)));
+
+    std::optional<std::string> subcommand = cfg->get_positional_argument(0);
+
+    if (subcommand)
+    {
+        std::cout << subcommand.value() << std::endl;
+    }
+    else
+    {
+        std::cout << "Absolutely Nothing" << std::endl;
+    }
 
     try
     {
