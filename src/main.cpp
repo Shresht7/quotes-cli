@@ -18,23 +18,23 @@ std::string format_quote(Quote q)
     return "\n\"" + q.text + "\"\n  - " + q.author + "\n";
 }
 
-std::string format_styled_quote(const Quote &quote, const std::string &separator, std::string &color)
+std::string format_styled_quote(const Quote &quote, const std::string &border, std::string &color)
 {
     Color clr = color_from_string(color);
 
     std::string quote_message = " " + quote.text;
     std::string quote_author = "  -- " + quote.author;
-    std::string separator_line = " " + std::string(separator.length() * quote_message.length(), separator.front());
+    std::string border_line = " " + std::string(border.length() * quote_message.length(), border.front());
     quote_message = ansi_color(quote_message, Color::BrightWhite);
     quote_author = ansi_color(quote_author, Color::BrightBlack);
-    separator_line = ansi_color(separator_line, clr);
+    border_line = ansi_color(border_line, clr);
 
     std::ostringstream oss;
     oss << "\n"
-        << separator_line << "\n"
+        << border_line << "\n"
         << quote_message << "\n"
         << quote_author << "\n"
-        << separator_line << "\n";
+        << border_line << "\n";
 
     return oss.str();
 }
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            std::cout << format_styled_quote(quotes.get_random(), cfg->separator, cfg->color) << std::endl;
+            std::cout << format_styled_quote(quotes.get_random(), cfg->border, cfg->color) << std::endl;
         }
     }
     catch (const std::exception &e)

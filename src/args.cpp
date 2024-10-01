@@ -18,8 +18,8 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [OPTIONS]\n"
                                  "Options:\n"
                                  "\n"
                                  "  -f, --filepath <path>       Path to the CSV file containing quotes (default: quotes.csv)\n"
-                                 "  -s, --separator <char>      Separator character (default: '=')\n"
-                                 "  -c, --color <color>         Color for the separator (default: 'default')\n"
+                                 "  -b, --border <char>         Border character (default: '=')\n"
+                                 "  -c, --color <color>         Color for the border (default: 'default')\n"
                                  "  --no-color / --plain        Plain output\n"
                                  "\n"
                                  "  -h, --help                  Show the help message\n"
@@ -43,7 +43,7 @@ bool contains(const char *str, const char *sub)
 }
 
 // Default constructor
-Config::Config() : filepath("~\\Data\\quotes.csv"), separator("="), color("Magenta"), plain(false) {}
+Config::Config() : filepath("~\\Data\\quotes.csv"), border("="), color("Magenta"), plain(false) {}
 
 // Parse command-line arguments and update the configuration
 int Config::parse_arguments(int argc, char *argv[])
@@ -63,15 +63,15 @@ int Config::parse_arguments(int argc, char *argv[])
                 return 1;
             }
         }
-        else if (contains(argv[i], "-s") || contains(argv[i], "--separator"))
+        else if (contains(argv[i], "-b") || contains(argv[i], "--border"))
         {
             if (i + 1 < argc)
             {
-                separator = argv[++i];
+                border = argv[++i];
             }
             else
             {
-                std::cerr << "Error: -s/--separator option requires an argument\n";
+                std::cerr << "Error: -b/--border option requires an argument\n";
                 return 1;
             }
         }

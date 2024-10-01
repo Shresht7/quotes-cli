@@ -12,7 +12,7 @@ class Config
 {
 public:
     std::string filepath;
-    std::string separator;
+    std::string border;
     std::string color;
     bool plain;
 
