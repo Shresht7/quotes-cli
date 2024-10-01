@@ -47,7 +47,7 @@ void get_quote(Config &cfg)
 
     // Get the second positional argument as the index
     std::string indexStr = cfg.get_positional_argument(1).value_or("0");
-    unsigned int i = atoi(indexStr.c_str());
+    unsigned int i = std::stoi(indexStr);
 
     // Get a random quote and write it to stdout
     if (cfg.plain)
