@@ -19,10 +19,10 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(json)
 
 # Add the executable
-add_executable(quotes src/main.cpp src/quotes.cpp src/helpers.cpp src/ansi.cpp src/args.cpp src/commands.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/quotes.cpp src/helpers.cpp src/ansi.cpp src/args.cpp src/commands.cpp)
 
 # Link the nlohmann_json library to the quotes target
-target_link_libraries(quotes PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
 
 # Include directories
-target_include_directories(quotes PUBLIC "${PROJECT_SOURCE_DIR}/src")
+target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/src")
