@@ -8,7 +8,6 @@
 /// Version number of the application
 const std::string VERSION = "v0.1.0";
 
-/// @brief Prints the version number to the screen
 void print_version()
 {
     std::cout << VERSION << std::endl;
@@ -32,7 +31,6 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [OPTIONS]\n"
                                  "\n"
                                  "  ./quotes -f quotes.csv -s \"-\" -c cyan\n\n";
 
-/// @brief Prints the help message to the screen
 void print_help()
 {
     std::cout << HELP_MESSAGE << std::endl;
@@ -145,10 +143,7 @@ std::optional<std::string> Config::get_positional_argument(unsigned int n)
 // FORMAT QUOTE
 // ------------
 
-/// @brief Formats the quote to its appropriate string representation
-/// @param q The quote object with the text and author fields
-/// @return A string fit for outputting to the console
-std::string Config::format_quote(Quote q)
+std::string Config::format_quote(const Quote &q)
 {
     std::ostringstream oss;
 

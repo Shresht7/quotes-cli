@@ -5,11 +5,13 @@
 #include <optional>
 #include "quotes.h"
 
+/// @brief Prints the version number to the screen
 void print_version();
 
+/// @brief Prints the help message to the screen
 void print_help();
 
-// Configuration struct for CLI
+// Configuration class for CLI
 class Config
 {
 private:
@@ -42,10 +44,17 @@ public:
 
     /// @brief Retrieve the positional argument at the given index
     /// @param n The position of the argument
-    /// @return The positional argument appearing at the given index or "" if it doesn't exist
+    /// @return The positional argument appearing at the given index or std::nullopt if it doesn't exist
     std::optional<std::string> get_positional_argument(unsigned int n);
 
-    std::string format_quote(Quote q);
+    /// @brief Formats the quote to its appropriate string representation
+    /// @param quote The quote object with the text and author fields
+    /// @return A string fit for outputting to the console
+    std::string format_quote(const Quote &quote);
+
+    /// @brief Formats the styled quote for outputting to the console
+    /// @param quote The quote object with the text and author fields
+    /// @return A styled string fit for outputting to the console
     std::string format_styled_quote(const Quote &quote);
 };
 
