@@ -14,13 +14,6 @@ void show_random_quote(Config &cfg)
     Quotes quotes;
     quotes.read_file(cfg.filepath);
 
-    // If the output is being redirected, change the format
-    if (is_output_redirected())
-    {
-        IS_COLOR_ENABLED = false;
-        cfg.margin = 0;
-    }
-
     // Get a random quote and write it to stdout
     if (cfg.plain)
     {
@@ -37,13 +30,6 @@ void get_quote(Config &cfg)
     // Read the Quotes from the CSV file
     Quotes quotes;
     quotes.read_file(cfg.filepath);
-
-    // If the output is being redirected, change the format
-    if (is_output_redirected())
-    {
-        IS_COLOR_ENABLED = false;
-        cfg.margin = 0;
-    }
 
     // Get the second positional argument as the index
     std::string indexStr = cfg.get_positional_argument(1).value_or("0");

@@ -17,6 +17,13 @@ int main(int argc, char *argv[])
     // Instantiate the Configuration
     auto cfg = std::make_unique<Config>();
 
+    // If the output is being redirected, change the format
+    if (is_output_redirected())
+    {
+        IS_COLOR_ENABLED = false;
+        cfg->margin = 0;
+    }
+
     // Parse the command-line arguments
     int parse_result = cfg->parse_arguments(argc, argv);
     if (parse_result == EXIT_FAILURE)
