@@ -9,8 +9,6 @@
 #include <unistd.h>
 #endif
 
-/// @brief Compares the two strings and returns true if they are the same. (Case-Insensitive)
-/// @return A boolean indicating whether two strings are the same.
 bool match(std::string &a, std::string &b)
 {
     // Transform to lowercase
@@ -25,10 +23,6 @@ bool match(std::string &a, std::string &b)
     return a == b;
 }
 
-/// @brief Create a new string by repeating the given characters
-/// @param s The string to repeat
-/// @param count The number of times to repeat the string
-/// @return A new string created by repeating the given characters
 std::string repeat(const std::string &s, unsigned int count)
 {
     std::string result;
@@ -40,9 +34,6 @@ std::string repeat(const std::string &s, unsigned int count)
     return result;
 }
 
-/// @brief Trim leading and trailing whitespace and quotes from a string
-/// @param str The string to trim
-/// @return The trimmed string
 std::string trim(const std::string &str)
 {
     size_t start = 0;
@@ -73,9 +64,6 @@ std::string trim(const std::string &str)
     return str.substr(start, end - start);
 }
 
-/// @brief Split a line into fields respecting quoted commas
-/// @param line The CSV line to split
-/// @return A vector of strings representing the fields
 std::vector<std::string> split_csv_line(const std::string &line)
 {
     std::vector<std::string> result;
@@ -102,7 +90,7 @@ std::vector<std::string> split_csv_line(const std::string &line)
     return result;
 }
 
-/// Get the location of the HOME or USERPROFILE from the environment variables
+/// @brief  the location of the HOME or USERPROFILE from the environment variables
 const char *get_home()
 {
     const char *home = std::getenv("HOME");
@@ -118,9 +106,6 @@ const char *get_home()
     return home;
 }
 
-/// @brief Resolves the given string as a filesystem path
-/// @param path The path string to resolve
-/// @return The actual filesystem path
 std::filesystem::path resolve_path(const std::string &path)
 {
     // Parse the string as a filesystem path
@@ -140,7 +125,6 @@ std::filesystem::path resolve_path(const std::string &path)
     return std::filesystem::path(home) / Location.relative_path();
 }
 
-// Function to extract the file extension from a file path
 std::string get_file_extension(const std::string &filepath)
 {
     size_t last_dot = filepath.find_last_of(".");
@@ -151,8 +135,6 @@ std::string get_file_extension(const std::string &filepath)
     return filepath.substr(last_dot + 1); // Return substring after the last dot
 }
 
-/// @brief Determine if the standard output is being redirected somewhere
-/// @return A boolean indicating true if STDOUT is being redirected, or false if outputting to the screen
 bool is_output_redirected()
 {
 #ifdef _WIN32

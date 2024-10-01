@@ -30,7 +30,7 @@ std::vector<std::string> split_csv_line(const std::string &line);
 /// @return The actual filesystem path
 std::filesystem::path resolve_path(const std::string &path);
 
-// Function to extract the file extension from a file path
+/// @brief Helper function to extract the file extension from a file path
 std::string get_file_extension(const std::string &filepath);
 
 /// @brief Determine if the standard output is being redirected somewhere
