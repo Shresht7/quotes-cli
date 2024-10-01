@@ -47,16 +47,24 @@ enum class Color
 // Dictates whether ANSI colors are enabled
 extern bool IS_COLOR_ENABLED;
 
-// Check if ANSI colors are enabled
+/// @brief Returns a boolean indicating whether ANSI colors are enabled or not
+/// @return A boolean indicating whether ANSI colors are enabled or not
 bool is_color_enabled();
 
-// Returns the ANSI code for the given color
+/// @brief Creates the ANSI code for the given color
+/// @param c The color from the Color enum
+/// @return A string representing the ANSI code for the given color
 std::string code(Color c);
 
-// Apply ANSI color to a string
+/// @brief Wraps the given text in the correct ANSI color codes
+/// @param text The text to apply ANSI styling to
+/// @param color The color to use for the ANSI code
+/// @return An ANSI string to render colors on the terminal
 std::string ansi_color(const std::string &text, Color color);
 
-// Convert string to color enum
+/// @brief Parse the ANSI Color from a string
+/// @param str The string to parse
+/// @return The color from the ANSI Color enum
 Color color_from_string(std::string &color);
 
 #endif // ANSI_H
