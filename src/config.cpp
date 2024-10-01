@@ -14,22 +14,25 @@ void print_version()
 }
 
 /// @brief The help message to show
-const std::string HELP_MESSAGE = "\nUsage: quotes [OPTIONS]\n"
+const std::string HELP_MESSAGE = "\nUsage: quotes [SUBCOMMAND] [OPTIONS]\n"
+                                 "\n"
+                                 "Subcommands:\n"
+                                 "  random                       Show a random quote\n"
+                                 "  get <id>                     Get a specific quote by ID\n"
+                                 "  help                         Show the help message\n"
+                                 "  version                      Show the version number\n"
                                  "\n"
                                  "Options:\n"
-                                 "\n"
-                                 "  -f, --filepath <path>       Path to the CSV file containing quotes (default: quotes.csv)\n"
-                                 "  -b, --border <char>         Border character (default: '=')\n"
-                                 "  -c, --color <color>         Color for the border (default: 'default')\n"
-                                 "  -m, --margin <number>       The number of lines to leave as margin (default: 1)\n"
-                                 "  --no-color / --plain        Plain output\n"
-                                 "\n"
-                                 "  -h, --help                  Show the help message\n"
-                                 "  -v, --version               Show the version number\n"
+                                 "  -f, --filepath <path>        Path to the CSV file containing quotes (default: quotes.csv)\n"
+                                 "  -b, --border <char>          Border character (default: '=')\n"
+                                 "  -c, --color <color>          Color for the border (default: 'default')\n"
+                                 "  -m, --margin <number>        The number of lines to leave as margin (default: 1)\n"
+                                 "  --no-color / --plain         Plain output\n"
                                  "\n"
                                  "Examples:\n"
-                                 "\n"
-                                 "  ./quotes -f quotes.csv -s \"-\" -c cyan\n\n";
+                                 "  quotes\n"
+                                 "  quotes random\n"
+                                 "  quotes --margin 2 --color cyan\n\n";
 
 void print_help()
 {
