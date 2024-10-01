@@ -45,10 +45,10 @@ void print_help()
     std::cout << HELP_MESSAGE << std::endl;
 }
 
-/// @brief function to check if a string starts with the given prefix
-bool contains(const char *str, const char *prefix)
+/// @brief function to check if two strings match (case-insensitive)
+bool contains(const char *a, const char *b)
 {
-    return std::strncmp(str, prefix, std::strlen(prefix)) == 0;
+    return match(std::string(a), std::string(b));
 }
 
 // Default constructor
