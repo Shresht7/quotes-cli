@@ -14,6 +14,7 @@ public:
     std::string filepath;
     std::string border;
     std::string color;
+    unsigned int margin;
     bool plain;
 
     // Default Constructor

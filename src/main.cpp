@@ -13,12 +13,18 @@
 /// @brief Formats the quote to its appropriate string representation
 /// @param q The quote object with the text and author fields
 /// @return A string fit for outputting to the console
-std::string format_quote(Quote q)
+std::string format_quote(Quote q, unsigned int margin)
 {
-    return "\n\"" + q.text + "\"\n  - " + q.author + "\n";
+    std::ostringstream oss;
+
+    oss << repeat("\n", margin)
+        << "\"" + q.text + "\"\n - " + q.author
+        << repeat("\n", margin);
+
+    return oss.str();
 }
 
-std::string format_styled_quote(const Quote &quote, const std::string &border, std::string &color)
+std::string format_styled_quote(const Quote &quote, const std::string &border, std::string &color, unsigned int margin)
 {
     Color clr = color_from_string(color);
 
@@ -30,11 +36,11 @@ std::string format_styled_quote(const Quote &quote, const std::string &border, s
     border_line = ansi_color(border_line, clr);
 
     std::ostringstream oss;
-    oss << "\n"
+    oss << repeat("\n", margin)
         << border_line << "\n"
         << quote_message << "\n"
         << quote_author << "\n"
-        << border_line << "\n";
+        << border_line << repeat("\n", margin);
 
     return oss.str();
 }
@@ -82,11 +88,11 @@ int main(int argc, char *argv[])
         // Get a random quote and write it to stdout
         if (cfg->plain)
         {
-            std::cout << format_quote(quotes.get_random()) << std::endl;
+            std::cout << format_quote(quotes.get_random(), cfg->margin) << std::endl;
         }
         else
         {
-            std::cout << format_styled_quote(quotes.get_random(), cfg->border, cfg->color) << std::endl;
+            std::cout << format_styled_quote(quotes.get_random(), cfg->border, cfg->color, cfg->margin) << std::endl;
         }
     }
     catch (const std::exception &e)

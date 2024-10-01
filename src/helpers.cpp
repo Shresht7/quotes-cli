@@ -19,6 +19,21 @@ bool match(std::string &a, std::string &b)
     return a == b;
 }
 
+/// @brief Create a new string by repeating the given characters
+/// @param s The string to repeat
+/// @param count The number of times to repeat the string
+/// @return A new string created by repeating the given characters
+std::string repeat(const std::string &s, unsigned int count)
+{
+    std::string result;
+    result.reserve(s.size() * count); // Reserve space to improve performance by reducing the number of re-allocations required
+    for (int i = 0; i < count; i++)
+    {
+        result += s;
+    }
+    return result;
+}
+
 /// @brief Trim leading and trailing whitespace and quotes from a string
 /// @param str The string to trim
 /// @return The trimmed string

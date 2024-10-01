@@ -20,6 +20,7 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [OPTIONS]\n"
                                  "  -f, --filepath <path>       Path to the CSV file containing quotes (default: quotes.csv)\n"
                                  "  -b, --border <char>         Border character (default: '=')\n"
                                  "  -c, --color <color>         Color for the border (default: 'default')\n"
+                                 "  -m, --margin <number>       The number of lines to leave as margin (default: 1)\n"
                                  "  --no-color / --plain        Plain output\n"
                                  "\n"
                                  "  -h, --help                  Show the help message\n"
@@ -43,7 +44,7 @@ bool contains(const char *str, const char *sub)
 }
 
 // Default constructor
-Config::Config() : filepath("~\\Data\\quotes.csv"), border("="), color("Magenta"), plain(false) {}
+Config::Config() : filepath("~\\Data\\quotes.csv"), border("="), margin(0), color("Magenta"), plain(false) {}
 
 // Parse command-line arguments and update the configuration
 int Config::parse_arguments(int argc, char *argv[])
@@ -89,6 +90,18 @@ int Config::parse_arguments(int argc, char *argv[])
             else
             {
                 std::cerr << "Error: -c/--color option requires an argument\n";
+                return 1;
+            }
+        }
+        else if (contains(argv[i], "-m") || contains(argv[i], "--margin"))
+        {
+            if (i + 1 < argc)
+            {
+                margin = atoi(argv[++i]);
+            }
+            else
+            {
+                std::cerr << "Error: -m/--margin option requires an argument\n";
                 return 1;
             }
         }

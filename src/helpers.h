@@ -9,6 +9,12 @@
 /// @return A boolean indicating whether two strings are the same.
 bool match(std::string &a, std::string &b);
 
+/// @brief Create a new string by repeating the given characters
+/// @param s The string to repeat
+/// @param count The number of times to repeat the string
+/// @return A new string created by repeating the given characters
+std::string repeat(const std::string &s, unsigned int count);
+
 /// @brief Trim leading and trailing whitespace and quotes from a string
 /// @param str The string to trim
 /// @return The trimmed string
