@@ -212,8 +212,6 @@ std::string Config::format_styled_quote(const Quote &quote)
 {
     std::string quote_message = " " + quote.text;
     std::string quote_author = "  -- " + quote.author;
-    quote_message = ansi_color(quote_message, color_from_string(color));
-    quote_author = ansi_color(quote_author, color_from_string(author_color));
 
     std::string border_line = "";
     if (!no_borders)
@@ -221,6 +219,10 @@ std::string Config::format_styled_quote(const Quote &quote)
         border_line = " " + std::string(border.length() * quote_message.length(), border.front());
         border_line = ansi_color(border_line, color_from_string(border_color));
     }
+
+    // Apply colors after determining the length of the border line as ANSI codes can mess with the length
+    quote_message = ansi_color(quote_message, color_from_string(color));
+    quote_author = ansi_color(quote_author, color_from_string(author_color));
 
     std::ostringstream oss;
     oss << repeat("\n", margin);
