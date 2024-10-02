@@ -48,11 +48,13 @@ void print_help()
 /// @brief function to check if two strings match (case-insensitive)
 bool contains(const char *a, const char *b)
 {
-    return match(std::string(a), std::string(b));
+    std::string str_a = a;
+    std::string str_b = b;
+    return match(str_a, str_b);
 }
 
 // Default constructor
-Config::Config() : filepath("~\\Data\\quotes.csv"),
+Config::Config() : filepath("~/Data/quotes.csv"),
                    border("="),
                    margin(1),
                    color("BrightWhite"),
