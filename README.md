@@ -45,6 +45,45 @@ Examples:
   quotes --margin 2 --color cyan
 ```
 
+---
+
+## 📂 Source File Format
+
+The application supports two file formats for quotes: CSV and JSON.
+
+### CSV Format (`.csv`)
+
+The CSV file should have two columns: `quote` and `author`. The first row is expected to be a header and will be skipped.
+
+Example (`quotes.csv`):
+
+```csv
+quote,author
+"The only true wisdom is in knowing you know nothing.","Socrates"
+"Be yourself; everyone else is already taken.","Oscar Wilde"
+```
+
+### JSON Format (`.json`)
+
+The JSON file should be an array of objects, where each object has a `quote` and an `author` field.
+
+Example (`quotes.json`):
+
+```json
+[
+  {
+    "quote": "The only true wisdom is in knowing you know nothing.",
+    "author": "Socrates"
+  },
+  {
+    "quote": "Be yourself; everyone else is already taken.",
+    "author": "Oscar Wilde"
+  }
+]
+```
+
+---
+
 ## 📄 License
 
 [MIT License](./LICENSE)
