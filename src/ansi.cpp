@@ -1,3 +1,4 @@
+#include <vector>
 #include <cstdlib>
 #include <stdexcept>
 
@@ -11,9 +12,16 @@
 /// ANSI Reset Code: Resets the styles to the defaults
 const std::string ANSI_RESET = "\x1b[0m";
 
-std::string code(Color c)
+std::string code(std::vector<Color> c)
 {
-    return "\x1b[" + std::to_string(static_cast<int>(c)) + "m";
+    std::string code = "\x1b[";
+    for (auto color : c)
+    {
+        code += std::to_string(static_cast<int>(color)) + ";";
+    }
+    code.pop_back(); // Remove the trailing semicolon
+    code += "m";
+    return code;
 }
 
 // ----------
@@ -32,11 +40,11 @@ bool is_color_enabled()
     return IS_COLOR_ENABLED && !is_no_color;
 }
 
-std::string ansi_color(const std::string &text, Color color)
+std::string ansi_color(const std::string &text, std::vector<Color> colors)
 {
     if (is_color_enabled())
     {
-        return code(color) + text + ANSI_RESET;
+        return code(colors) + text + ANSI_RESET;
     }
     else
     {
@@ -44,8 +52,12 @@ std::string ansi_color(const std::string &text, Color color)
     }
 }
 
-Color color_from_string(std::string &str)
+std::vector<Color> color_from_string(std::string &str)
 {
+    std::vector<Color> codes = {};
+
+    std::vector<std::string> codesStr = split_csv_line(str);
+    std::string Italic = "italic";
     std::string Black = "Black";
     std::string Red = "Red";
     std::string Green = "Green";
@@ -83,78 +95,85 @@ Color color_from_string(std::string &str)
     std::string BgBrightWhite = "BgBrightWhite";
     std::string BgBrightDefault = "BgBrightDefault";
 
-    if (match(str, Black))
-        return Color::Black;
-    else if (match(str, Red))
-        return Color::Red;
-    else if (match(str, Green))
-        return Color::Green;
-    else if (match(str, Yellow))
-        return Color::Yellow;
-    else if (match(str, Blue))
-        return Color::Blue;
-    else if (match(str, Magenta))
-        return Color::Magenta;
-    else if (match(str, Cyan))
-        return Color::Cyan;
-    else if (match(str, White))
-        return Color::White;
-    else if (match(str, Default))
-        return Color::Default;
-    else if (match(str, BgBlack))
-        return Color::BgBlack;
-    else if (match(str, BgRed))
-        return Color::BgRed;
-    else if (match(str, BgGreen))
-        return Color::BgGreen;
-    else if (match(str, BgYellow))
-        return Color::BgYellow;
-    else if (match(str, BgBlue))
-        return Color::BgBlue;
-    else if (match(str, BgMagenta))
-        return Color::BgMagenta;
-    else if (match(str, BgCyan))
-        return Color::BgCyan;
-    else if (match(str, BgWhite))
-        return Color::BgWhite;
-    else if (match(str, BgDefault))
-        return Color::BgDefault;
-    else if (match(str, BrightBlack))
-        return Color::BrightBlack;
-    else if (match(str, BrightRed))
-        return Color::BrightRed;
-    else if (match(str, BrightGreen))
-        return Color::BrightGreen;
-    else if (match(str, BrightYellow))
-        return Color::BrightYellow;
-    else if (match(str, BrightBlue))
-        return Color::BrightBlue;
-    else if (match(str, BrightMagenta))
-        return Color::BrightMagenta;
-    else if (match(str, BrightCyan))
-        return Color::BrightCyan;
-    else if (match(str, BrightWhite))
-        return Color::BrightWhite;
-    else if (match(str, BrightDefault))
-        return Color::BrightDefault;
-    else if (match(str, BgBrightBlack))
-        return Color::BgBrightBlack;
-    else if (match(str, BgBrightRed))
-        return Color::BgBrightRed;
-    else if (match(str, BgBrightGreen))
-        return Color::BgBrightGreen;
-    else if (match(str, BgBrightYellow))
-        return Color::BgBrightYellow;
-    else if (match(str, BgBrightBlue))
-        return Color::BgBrightBlue;
-    else if (match(str, BgBrightMagenta))
-        return Color::BgBrightMagenta;
-    else if (match(str, BgBrightCyan))
-        return Color::BgBrightCyan;
-    else if (match(str, BgBrightWhite))
-        return Color::BgBrightWhite;
-    else if (match(str, BgBrightDefault))
-        return Color::BgBrightDefault;
-    else
-        throw std::invalid_argument("Unknown color: " + str);
+    for (auto code : codesStr)
+    {
+        if (match(code, Italic))
+            codes.push_back(Color::Italic);
+        else if (match(code, Black))
+            codes.push_back(Color::Black);
+        else if (match(code, Red))
+            codes.push_back(Color::Red);
+        else if (match(code, Green))
+            codes.push_back(Color::Green);
+        else if (match(code, Yellow))
+            codes.push_back(Color::Yellow);
+        else if (match(code, Blue))
+            codes.push_back(Color::Blue);
+        else if (match(code, Magenta))
+            codes.push_back(Color::Magenta);
+        else if (match(code, Cyan))
+            codes.push_back(Color::Cyan);
+        else if (match(code, White))
+            codes.push_back(Color::White);
+        else if (match(code, Default))
+            codes.push_back(Color::Default);
+        else if (match(code, BgBlack))
+            codes.push_back(Color::BgBlack);
+        else if (match(code, BgRed))
+            codes.push_back(Color::BgRed);
+        else if (match(code, BgGreen))
+            codes.push_back(Color::BgGreen);
+        else if (match(code, BgYellow))
+            codes.push_back(Color::BgYellow);
+        else if (match(code, BgBlue))
+            codes.push_back(Color::BgBlue);
+        else if (match(code, BgMagenta))
+            codes.push_back(Color::BgMagenta);
+        else if (match(code, BgCyan))
+            codes.push_back(Color::BgCyan);
+        else if (match(code, BgWhite))
+            codes.push_back(Color::BgWhite);
+        else if (match(code, BgDefault))
+            codes.push_back(Color::BgDefault);
+        else if (match(code, BrightBlack))
+            codes.push_back(Color::BrightBlack);
+        else if (match(code, BrightRed))
+            codes.push_back(Color::BrightRed);
+        else if (match(code, BrightGreen))
+            codes.push_back(Color::BrightGreen);
+        else if (match(code, BrightYellow))
+            codes.push_back(Color::BrightYellow);
+        else if (match(code, BrightBlue))
+            codes.push_back(Color::BrightBlue);
+        else if (match(code, BrightMagenta))
+            codes.push_back(Color::BrightMagenta);
+        else if (match(code, BrightCyan))
+            codes.push_back(Color::BrightCyan);
+        else if (match(code, BrightWhite))
+            codes.push_back(Color::BrightWhite);
+        else if (match(code, BrightDefault))
+            codes.push_back(Color::BrightDefault);
+        else if (match(code, BgBrightBlack))
+            codes.push_back(Color::BgBrightBlack);
+        else if (match(code, BgBrightRed))
+            codes.push_back(Color::BgBrightRed);
+        else if (match(code, BgBrightGreen))
+            codes.push_back(Color::BgBrightGreen);
+        else if (match(code, BgBrightYellow))
+            codes.push_back(Color::BgBrightYellow);
+        else if (match(code, BgBrightBlue))
+            codes.push_back(Color::BgBrightBlue);
+        else if (match(code, BgBrightMagenta))
+            codes.push_back(Color::BgBrightMagenta);
+        else if (match(code, BgBrightCyan))
+            codes.push_back(Color::BgBrightCyan);
+        else if (match(code, BgBrightWhite))
+            codes.push_back(Color::BgBrightWhite);
+        else if (match(code, BgBrightDefault))
+            codes.push_back(Color::BgBrightDefault);
+        else
+            throw std::invalid_argument("Unknown color: " + code);
+    }
+
+    return codes;
 }
