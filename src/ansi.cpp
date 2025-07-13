@@ -41,7 +41,7 @@ bool is_color_enabled()
     return IS_COLOR_ENABLED && !is_no_color;
 }
 
-std::string ansi_color(const std::string &text, std::vector<AnsiCode> colors)
+std::string ansi(const std::string &text, std::vector<AnsiCode> colors)
 {
     if (is_color_enabled())
     {
@@ -98,7 +98,7 @@ const std::map<std::string, AnsiCode> CODE_MAP = {
     {"bgbrightwhite", AnsiCode::BgBrightWhite},
 };
 
-std::vector<AnsiCode> color_from_string(std::string &str)
+std::vector<AnsiCode> ansi_codes_from_string(std::string &str)
 {
     std::vector<AnsiCode> codes = {};
     std::vector<std::string> codesStr = split_csv_line(str);
