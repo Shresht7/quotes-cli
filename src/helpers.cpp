@@ -9,18 +9,13 @@
 #include <unistd.h>
 #endif
 
-bool match(std::string &a, std::string &b)
+std::string to_lower(std::string &s)
 {
-    // Transform to lowercase
-    for (char &c : a)
+    for (char &c : s)
     {
         c = std::tolower(c);
     }
-    for (char &c : b)
-    {
-        c = std::tolower(c);
-    }
-    return a == b;
+    return s;
 }
 
 std::string repeat(const std::string &s, unsigned int count)
