@@ -67,20 +67,20 @@ extern bool IS_COLOR_ENABLED;
 /// @return A boolean indicating whether ANSI colors are enabled or not
 bool is_color_enabled();
 
-/// @brief Creates the ANSI code for the given colors
-/// @param c A vector of colors from the AnsiCode enum
-/// @return A string representing the ANSI code for the given colors
+/// @brief Creates the ANSI code for the given styles and colors
+/// @param c A vector of codes from the AnsiCode enum
+/// @return A string representing the ANSI code for the given styles and colors
 std::string code(std::vector<AnsiCode> c);
 
-/// @brief Wraps the given text in the correct ANSI color codes
+/// @brief Wraps the given text in the correct ANSI codes
 /// @param text The text to apply ANSI styling to
-/// @param colors The colors to use for the ANSI code
-/// @return An ANSI string to render colors on the terminal
-std::string ansi_color(const std::string &text, std::vector<AnsiCode> colors);
+/// @param codes The styles/colors to use for the ANSI code
+/// @return An ANSI string to render styles/colors on the terminal
+std::string ansi(const std::string &text, std::vector<AnsiCode> codes);
 
 /// @brief Parse ANSI codes from a string
 /// @param str The string to parse (e.g. "red,bold")
 /// @return A vector of AnsiCode enums
-std::vector<AnsiCode> color_from_string(std::string &color);
+std::vector<AnsiCode> ansi_codes_from_string(std::string &color);
 
 #endif // ANSI_H

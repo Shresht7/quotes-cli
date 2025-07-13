@@ -191,8 +191,8 @@ std::optional<std::string> Config::get_positional_argument(unsigned int n)
 std::string Config::format_quote(const Quote &q)
 {
     std::ostringstream oss;
-    std::string quote_message = ansi_color('"' + q.text + '"', color_from_string(color));
-    std::string quote_author = ansi_color("- " + q.author, color_from_string(author_color));
+    std::string quote_message = ansi('"' + q.text + '"', ansi_codes_from_string(color));
+    std::string quote_author = ansi("- " + q.author, ansi_codes_from_string(author_color));
 
     oss << repeat("\n", margin)
         << quote_message
@@ -212,12 +212,12 @@ std::string Config::format_styled_quote(const Quote &quote)
     if (!no_borders)
     {
         border_line = " " + std::string(border.length() * quote_message.length(), border.front());
-        border_line = ansi_color(border_line, color_from_string(border_color));
+        border_line = ansi(border_line, ansi_codes_from_string(border_color));
     }
 
     // Apply colors after determining the length of the border line as ANSI codes can mess with the length
-    quote_message = ansi_color(quote_message, color_from_string(color));
-    quote_author = ansi_color(quote_author, color_from_string(author_color));
+    quote_message = ansi(quote_message, ansi_codes_from_string(color));
+    quote_author = ansi(quote_author, ansi_codes_from_string(author_color));
 
     std::ostringstream oss;
     oss << repeat("\n", margin);
@@ -239,4 +239,3 @@ std::string Config::format_styled_quote(const Quote &quote)
 
     return oss.str();
 }
-
