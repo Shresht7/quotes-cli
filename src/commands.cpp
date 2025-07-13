@@ -45,3 +45,15 @@ void get_quote(Config &cfg)
         std::cout << cfg.format_styled_quote(quotes.get(i)) << std::endl;
     }
 }
+
+void list_quotes(Config &cfg)
+{
+    // Read the quotes from the file
+    Quotes quotes;
+    quotes.read_file(cfg.filepath);
+
+    for (auto q : quotes.all())
+    {
+        std::cout << q.text << " - " << q.author << std::endl;
+    }
+}

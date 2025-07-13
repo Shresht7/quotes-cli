@@ -43,6 +43,10 @@ int main(int argc, char *argv[])
         {
             get_quote(*cfg);
         }
+        else if (subcommand == "list")
+        {
+            list_quotes(*cfg);
+        }
         else if (subcommand == "help")
         {
             print_help();

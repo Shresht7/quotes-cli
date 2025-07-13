@@ -11,4 +11,7 @@ void show_random_quote(Config &cfg);
 /// @param cfg The configuration object containing settings for displaying the quote.
 void get_quote(Config &cfg);
 
+/// @brief lists all quotes
+void list_quotes(Config &cfg);
+
 #endif // COMMANDS_H

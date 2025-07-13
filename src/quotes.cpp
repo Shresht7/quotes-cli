@@ -10,6 +10,11 @@ using json = nlohmann::json;
 #include "helpers.h"
 #include "quotes.h"
 
+int Quotes::size() const
+{
+    return quotes.size();
+}
+
 Quote Quotes::get(unsigned int n)
 {
     if (n > quotes.size())
@@ -27,6 +32,11 @@ Quote Quotes::get_random() const
     }
     int index = std::rand() % quotes.size();
     return quotes[index];
+}
+
+std::vector<Quote> Quotes::all()
+{
+    return quotes;
 }
 
 void Quotes::read_file(const std::string &filepath)

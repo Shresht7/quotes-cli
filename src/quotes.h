@@ -28,6 +28,9 @@ private:
 public:
     Quotes() = default;
 
+    /// @return The size of the list of all quotes
+    int size() const;
+
     /// @brief Retrieves a single quote from the vector
     /// @param n The index of the quote
     /// @return A single quote from the list of quotes
@@ -36,6 +39,9 @@ public:
     /// @brief Retrieves a random quote from the vector
     /// @return A random quote from the list of quotes
     Quote get_random() const;
+
+    /// @return The list of all quotes
+    std::vector<Quote> all();
 
     /// @brief Reads the given file to parse the quotes
     /// @param filepath The path to the CSV or JSON file containing the quotes
