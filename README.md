@@ -28,8 +28,8 @@ Subcommands:
 
 Options:
   -f, --filepath <path>        Path to the CSV file containing quotes (default: quotes.csv)
-  -c, --color                  The text color
-  --author-color               The color to use for the author
+  -s, --style                  The ansi styles/colors for the quote text
+  --author-style               The ansi styles/colors for the author
   -m, --margin <number>        The number of lines to leave as margin (default: 1)
   -b, --border <char>          Border character (default: '=')
   --border-color <color>       Color for the border (default: 'default')
