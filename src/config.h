@@ -43,6 +43,9 @@ public:
     /// @brief Indicates if the output should be plain and simple
     bool plain;
 
+    /// @brief Indicates whether to surround the quote with quotation marks
+    bool surround_with_quotes;
+
     // Default Constructor
     Config();
 

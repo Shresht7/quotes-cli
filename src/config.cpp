@@ -29,6 +29,7 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [SUBCOMMAND] [OPTIONS]\n"
                                  "  -m, --margin <number>        The number of lines to leave as margin (default: 1)\n"
                                  "  -b, --border <char>          Border character (default: '=')\n"
                                  "  --border-color <color>       Color for the border (default: 'default')\n"
+                                 "  --quotes                     Surround the quote with quotation marks\n"
                                  "  --no-borders                 Disables borders\n"
                                  "  --no-color / --plain         Plain output\n"
                                  "\n"
@@ -53,7 +54,8 @@ Config::Config() : filepath("~/Data/quotes.csv"),
                    author_style("BrightBlack"),
                    border_color("Magenta"),
                    no_borders(false),
-                   plain(false)
+                   plain(false),
+                   surround_with_quotes(false)
 {
 }
 
@@ -94,6 +96,10 @@ int Config::parse_arguments(int argc, char *argv[])
         else if (arg == "--no-borders")
         {
             no_borders = true;
+        }
+        else if (arg == "--quotes")
+        {
+            surround_with_quotes = true;
         }
         else if (arg == "--no-color" || arg == "--plain")
         {
@@ -191,7 +197,8 @@ std::optional<std::string> Config::get_positional_argument(unsigned int n)
 std::string Config::format_quote(const Quote &q)
 {
     std::ostringstream oss;
-    std::string quote_message = ansi('"' + q.text + '"', ansi_codes_from_string(style));
+    std::string quote_text = surround_with_quotes ? "\"" + q.text + "\"" : q.text;
+    std::string quote_message = ansi(quote_text, ansi_codes_from_string(style));
     std::string quote_author = ansi("- " + q.author, ansi_codes_from_string(author_style));
 
     oss << repeat("\n", margin)
@@ -205,7 +212,8 @@ std::string Config::format_quote(const Quote &q)
 
 std::string Config::format_styled_quote(const Quote &quote)
 {
-    std::string quote_message = " " + quote.text;
+    std::string quote_text = surround_with_quotes ? "\"" + quote.text + "\"" : quote.text;
+    std::string quote_message = " " + quote_text;
     std::string quote_author = "  -- " + quote.author;
 
     std::string border_line = "";
