@@ -2,10 +2,12 @@
 #define ANSI_H
 
 #include <string>
+#include <vector>
 
 // Enumeration for ANSI colors
 enum class Color
 {
+    Italic = 3,
     Black = 30,
     Red,
     Green,
@@ -60,11 +62,11 @@ std::string code(Color c);
 /// @param text The text to apply ANSI styling to
 /// @param color The color to use for the ANSI code
 /// @return An ANSI string to render colors on the terminal
-std::string ansi_color(const std::string &text, Color color);
+std::string ansi_color(const std::string &text, std::vector<Color> color);
 
 /// @brief Parse the ANSI Color from a string
 /// @param str The string to parse
 /// @return The color from the ANSI Color enum
-Color color_from_string(std::string &color);
+std::vector<Color> color_from_string(std::string &color);
 
 #endif // ANSI_H
