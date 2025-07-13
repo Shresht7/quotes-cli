@@ -23,6 +23,7 @@ Usage: quotes [SUBCOMMAND] [OPTIONS]
 Subcommands:
   random                       Show a random quote
   get <id>                     Get a specific quote by ID
+  list                         List all quotes
   help                         Show the help message
   version                      Show the version number
 
@@ -33,6 +34,7 @@ Options:
   -m, --margin <number>        The number of lines to leave as margin (default: 1)
   -b, --border <char>          Border character (default: '=')
   --border-color <color>       Color for the border (default: 'default')
+  --quotes                     Surround the quote with quotation marks
   --no-borders                 Disables borders
   --no-color / --plain         Plain output
 
