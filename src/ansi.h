@@ -4,10 +4,20 @@
 #include <string>
 #include <vector>
 
-// Enumeration for ANSI colors
-enum class Color
+// Enumeration for ANSI styles and colors
+enum class AnsiCode
 {
-    Italic = 3,
+    // Styles
+    Bold = 1,
+    Dim,
+    Italic,
+    Underline,
+    Blink,
+    Reverse = 7,
+    Hidden,
+    Strikethrough,
+
+    // Foreground colors
     Black = 30,
     Red,
     Green,
@@ -15,8 +25,10 @@ enum class Color
     Blue,
     Magenta,
     Cyan,
-    White = 37,
+    White,
     Default = 39,
+
+    // Background colors
     BgBlack = 40,
     BgRed,
     BgGreen,
@@ -24,8 +36,10 @@ enum class Color
     BgBlue,
     BgMagenta,
     BgCyan,
-    BgWhite = 47,
+    BgWhite,
     BgDefault = 49,
+
+    // Bright foreground colors
     BrightBlack = 90,
     BrightRed,
     BrightGreen,
@@ -34,7 +48,8 @@ enum class Color
     BrightMagenta,
     BrightCyan,
     BrightWhite,
-    BrightDefault = 99,
+
+    // Bright background colors
     BgBrightBlack = 100,
     BgBrightRed,
     BgBrightGreen,
@@ -42,8 +57,7 @@ enum class Color
     BgBrightBlue,
     BgBrightMagenta,
     BgBrightCyan,
-    BgBrightWhite = 107,
-    BgBrightDefault = 109,
+    BgBrightWhite,
 };
 
 // Dictates whether ANSI colors are enabled
@@ -53,20 +67,20 @@ extern bool IS_COLOR_ENABLED;
 /// @return A boolean indicating whether ANSI colors are enabled or not
 bool is_color_enabled();
 
-/// @brief Creates the ANSI code for the given color
-/// @param c The color from the Color enum
-/// @return A string representing the ANSI code for the given color
-std::string code(Color c);
+/// @brief Creates the ANSI code for the given colors
+/// @param c A vector of colors from the AnsiCode enum
+/// @return A string representing the ANSI code for the given colors
+std::string code(std::vector<AnsiCode> c);
 
 /// @brief Wraps the given text in the correct ANSI color codes
 /// @param text The text to apply ANSI styling to
-/// @param color The color to use for the ANSI code
+/// @param colors The colors to use for the ANSI code
 /// @return An ANSI string to render colors on the terminal
-std::string ansi_color(const std::string &text, std::vector<Color> color);
+std::string ansi_color(const std::string &text, std::vector<AnsiCode> colors);
 
-/// @brief Parse the ANSI Color from a string
-/// @param str The string to parse
-/// @return The color from the ANSI Color enum
-std::vector<Color> color_from_string(std::string &color);
+/// @brief Parse ANSI codes from a string
+/// @param str The string to parse (e.g. "red,bold")
+/// @return A vector of AnsiCode enums
+std::vector<AnsiCode> color_from_string(std::string &color);
 
 #endif // ANSI_H

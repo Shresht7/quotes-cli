@@ -5,9 +5,10 @@
 #include <vector>
 #include <filesystem>
 
-/// @brief Compares the two strings and returns true if they are the same. (Case-Insensitive)
-/// @return A boolean indicating whether two strings are the same.
-bool match(std::string &a, std::string &b);
+/// @brief Converts a string to lowercase
+/// @param s The string to convert
+/// @return The lowercase string
+std::string to_lower(std::string &s);
 
 /// @brief Create a new string by repeating the given characters
 /// @param s The string to repeat

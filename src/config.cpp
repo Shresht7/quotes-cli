@@ -45,14 +45,6 @@ void print_help()
     std::cout << HELP_MESSAGE << std::endl;
 }
 
-/// @brief function to check if two strings match (case-insensitive)
-bool contains(const char *a, const char *b)
-{
-    std::string str_a = a;
-    std::string str_b = b;
-    return match(str_a, str_b);
-}
-
 // Default constructor
 Config::Config() : filepath("~/Data/quotes.csv"),
                    border("="),
@@ -70,7 +62,8 @@ int Config::parse_arguments(int argc, char *argv[])
 {
     for (int i = 1; i < argc; ++i)
     {
-        if (contains(argv[i], "-f") || contains(argv[i], "--filepath"))
+        std::string arg = argv[i];
+        if (arg == "-f" || arg == "--filepath")
         {
             if (i + 1 < argc)
             {
@@ -82,7 +75,7 @@ int Config::parse_arguments(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
         }
-        else if (contains(argv[i], "-b") || contains(argv[i], "--border"))
+        else if (arg == "-b" || arg == "--border")
         {
             if (i + 1 < argc)
             {
@@ -98,17 +91,17 @@ int Config::parse_arguments(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
         }
-        else if (contains(argv[i], "--no-borders"))
+        else if (arg == "--no-borders")
         {
             no_borders = true;
         }
-        else if (contains(argv[i], "--no-color") || contains(argv[i], "--plain"))
+        else if (arg == "--no-color" || arg == "--plain")
         {
             IS_COLOR_ENABLED = false;
             no_borders = true;
             plain = true;
         }
-        else if (contains(argv[i], "-c") || contains(argv[i], "--color"))
+        else if (arg == "-c" || arg == "--color")
         {
             if (i + 1 < argc)
             {
@@ -120,7 +113,7 @@ int Config::parse_arguments(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
         }
-        else if (contains(argv[i], "--author-color"))
+        else if (arg == "--author-color")
         {
             if (i + 1 < argc)
             {
@@ -132,7 +125,7 @@ int Config::parse_arguments(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
         }
-        else if (contains(argv[i], "--border-color"))
+        else if (arg == "--border-color")
         {
             if (i + 1 < argc)
             {
@@ -144,7 +137,7 @@ int Config::parse_arguments(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
         }
-        else if (contains(argv[i], "-m") || contains(argv[i], "--margin"))
+        else if (arg == "-m" || arg == "--margin")
         {
             if (i + 1 < argc)
             {
@@ -156,17 +149,17 @@ int Config::parse_arguments(int argc, char *argv[])
                 return EXIT_FAILURE;
             }
         }
-        else if (contains(argv[i], "-h") || contains(argv[i], "--help"))
+        else if (arg == "-h" || arg == "--help")
         {
             print_help();
             return EXIT_FAILURE;
         }
-        else if (contains(argv[i], "-v") || contains(argv[i], "--version"))
+        else if (arg == "-v" || arg == "--version")
         {
             print_version();
             return EXIT_FAILURE;
         }
-        else if (contains(argv[i], "-"))
+        else if (arg[0] == '-')
         {
             // At this point, this is an unrecognized flag/option
             std::cerr << "Unknown option: " << argv[i] << std::endl;
@@ -246,3 +239,4 @@ std::string Config::format_styled_quote(const Quote &quote)
 
     return oss.str();
 }
+
