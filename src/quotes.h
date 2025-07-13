@@ -46,6 +46,17 @@ public:
     /// @brief Reads the given file to parse the quotes
     /// @param filepath The path to the CSV or JSON file containing the quotes
     void read_file(const std::string &filepath);
+
+    /// @brief Adds a new quote to the list of quotes.
+    /// @param quote The quote to add.
+    void add_quote(const Quote &quote);
+
+    /// @brief Writes the current quotes to the specified file.
+    /// @param filepath The path to the CSV or JSON file to write to.
+    void write_file(const std::string &filepath);
+
+    void write_csv(const std::string &filepath);
+    void write_json(const std::string &filepath);
 };
 
 #endif // QUOTES_H

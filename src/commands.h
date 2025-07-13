@@ -14,4 +14,7 @@ void get_quote(Config &cfg);
 /// @brief lists all quotes
 void list_quotes(Config &cfg);
 
+/// @brief Creates a new quote and adds it to the source file.
+void create_quote(Config &cfg);
+
 #endif // COMMANDS_H

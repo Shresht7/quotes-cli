@@ -138,3 +138,15 @@ bool is_output_redirected()
     return isatty(fileno(stdout)) == 0;
 #endif
 }
+
+std::string escape_csv(const std::string &s)
+{
+    std::string escaped_s = s;
+    size_t pos = 0;
+    while ((pos = escaped_s.find('"', pos)) != std::string::npos)
+    {
+        escaped_s.replace(pos, 1, """");
+        pos += 2;
+    }
+    return escaped_s;
+}

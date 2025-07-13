@@ -134,3 +134,64 @@ void Quotes::read_json(const std::string &filepath)
         throw std::runtime_error("The JSON file contains no valid quotes: " + filepath);
     }
 }
+
+void Quotes::add_quote(const Quote &quote)
+{
+    quotes.push_back(quote);
+}
+
+void Quotes::write_file(const std::string &filepath)
+{
+    std::filesystem::path path = resolve_path(filepath);
+    std::string filetype = get_file_extension(filepath);
+
+    if (filetype == "csv")
+    {
+        write_csv(path.string());
+    }
+    else if (filetype == "json")
+    {
+        write_json(path.string());
+    }
+    else
+    {
+        throw std::runtime_error("Unsupported file type for writing: " + path.string());
+    }
+}
+
+void Quotes::write_csv(const std::string &filepath)
+{
+    std::ofstream file(filepath);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Unable to open CSV file for writing: " + filepath);
+    }
+
+    file << "quote,author\n"; // Write header
+    for (const auto &q : quotes)
+    {
+        file << "\"" << escape_csv(q.text) << "\",\"" << escape_csv(q.author) << "\"\n";
+    }
+    file.close();
+}
+
+void Quotes::write_json(const std::string &filepath)
+{
+    std::ofstream file(filepath);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Unable to open JSON file for writing: " + filepath);
+    }
+
+    json j_array = json::array();
+    for (auto &q : quotes)
+    {
+        json j_quote;
+        j_quote["quote"] = q.text;
+        j_quote["author"] = q.author;
+        j_array.push_back(j_quote);
+    }
+
+    file << j_array.dump(4); // Pretty print with 4 spaces
+    file.close();
+}

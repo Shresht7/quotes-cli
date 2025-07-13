@@ -57,3 +57,22 @@ void list_quotes(Config &cfg)
         std::cout << q.text << " - " << q.author << std::endl;
     }
 }
+
+void create_quote(Config &cfg)
+{
+    Quotes quotes;
+    quotes.read_file(cfg.filepath);
+
+    std::cout << "Enter quote: ";
+    std::string quote_text;
+    std::getline(std::cin, quote_text);
+
+    std::cout << "Enter author: ";
+    std::string author_name;
+    std::getline(std::cin, author_name);
+
+    quotes.add_quote({quote_text, author_name});
+    quotes.write_file(cfg.filepath);
+
+    std::cout << "Quote added successfully!" << std::endl;
+}

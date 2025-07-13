@@ -47,6 +47,10 @@ int main(int argc, char *argv[])
         {
             list_quotes(*cfg);
         }
+        else if (subcommand == "create")
+        {
+            create_quote(*cfg);
+        }
         else if (subcommand == "help")
         {
             print_help();

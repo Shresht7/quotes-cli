@@ -38,4 +38,9 @@ std::string get_file_extension(const std::string &filepath);
 /// @return A boolean indicating true if STDOUT is being redirected, or false if outputting to the screen
 bool is_output_redirected();
 
+/// @brief Escapes a string for CSV output, handling quotes and commas.
+/// @param s The string to escape.
+/// @return The escaped string.
+std::string escape_csv(const std::string &s);
+
 #endif // HELPERS_H
