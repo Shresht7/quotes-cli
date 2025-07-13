@@ -22,11 +22,11 @@ public:
     /// @brief The path to the source file containing the quotes
     std::string filepath;
 
-    /// @brief The text color
-    std::string color;
+    /// @brief The ansi styles/colors for the quote text
+    std::string style;
 
-    /// @brief The color for the author
-    std::string author_color;
+    /// @brief The ansi styles/colors for the author
+    std::string author_style;
 
     /// @brief The style of borders
     std::string border;

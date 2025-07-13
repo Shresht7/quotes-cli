@@ -24,8 +24,8 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [SUBCOMMAND] [OPTIONS]\n"
                                  "\n"
                                  "Options:\n"
                                  "  -f, --filepath <path>        Path to the CSV file containing quotes (default: quotes.csv)\n"
-                                 "  -c, --color                  The text color\n"
-                                 "  --author-color               The color to use for the author\n"
+                                 "  -s, --style                  The ansi styles/colors for the quote text\n"
+                                 "  --author-style               The ansi styles/colors for the author\n"
                                  "  -m, --margin <number>        The number of lines to leave as margin (default: 1)\n"
                                  "  -b, --border <char>          Border character (default: '=')\n"
                                  "  --border-color <color>       Color for the border (default: 'default')\n"
@@ -49,8 +49,8 @@ void print_help()
 Config::Config() : filepath("~/Data/quotes.csv"),
                    border("="),
                    margin(1),
-                   color("BrightWhite"),
-                   author_color("BrightBlack"),
+                   style("BrightWhite"),
+                   author_style("BrightBlack"),
                    border_color("Magenta"),
                    no_borders(false),
                    plain(false)
@@ -101,27 +101,27 @@ int Config::parse_arguments(int argc, char *argv[])
             no_borders = true;
             plain = true;
         }
-        else if (arg == "-c" || arg == "--color")
+        else if (arg == "-s" || arg == "--style")
         {
             if (i + 1 < argc)
             {
-                color = argv[++i];
+                style = argv[++i];
             }
             else
             {
-                std::cerr << "Error: -c/--color option requires an argument\n";
+                std::cerr << "Error: -s/--style option requires an argument\n";
                 return EXIT_FAILURE;
             }
         }
-        else if (arg == "--author-color")
+        else if (arg == "--author-style")
         {
             if (i + 1 < argc)
             {
-                author_color = argv[++i];
+                author_style = argv[++i];
             }
             else
             {
-                std::cerr << "Error: --author-color option requires an argument\n";
+                std::cerr << "Error: --author-style option requires an argument\n";
                 return EXIT_FAILURE;
             }
         }
@@ -191,8 +191,8 @@ std::optional<std::string> Config::get_positional_argument(unsigned int n)
 std::string Config::format_quote(const Quote &q)
 {
     std::ostringstream oss;
-    std::string quote_message = ansi('"' + q.text + '"', ansi_codes_from_string(color));
-    std::string quote_author = ansi("- " + q.author, ansi_codes_from_string(author_color));
+    std::string quote_message = ansi('"' + q.text + '"', ansi_codes_from_string(style));
+    std::string quote_author = ansi("- " + q.author, ansi_codes_from_string(author_style));
 
     oss << repeat("\n", margin)
         << quote_message
@@ -216,8 +216,8 @@ std::string Config::format_styled_quote(const Quote &quote)
     }
 
     // Apply colors after determining the length of the border line as ANSI codes can mess with the length
-    quote_message = ansi(quote_message, ansi_codes_from_string(color));
-    quote_author = ansi(quote_author, ansi_codes_from_string(author_color));
+    quote_message = ansi(quote_message, ansi_codes_from_string(style));
+    quote_author = ansi(quote_author, ansi_codes_from_string(author_style));
 
     std::ostringstream oss;
     oss << repeat("\n", margin);
