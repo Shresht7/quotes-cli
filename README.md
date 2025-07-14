@@ -28,6 +28,8 @@ Subcommands:
   create                       Add a new quote
       --text                       The quote text (optional)
       --author                     The author name (optional)
+  edit                         Opens the data-source file in the default editor
+  delete <id>                  Delete a specific quote by ID
   help                         Show the help message
   version                      Show the version number
 
@@ -49,7 +51,6 @@ Examples:
   quotes
   quotes random
   quotes --margin 2 --color cyan
-
 ```
 
 ---
