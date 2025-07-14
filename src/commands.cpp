@@ -33,8 +33,25 @@ void get_quote(Config &cfg)
     quotes.read_file(cfg.filepath);
 
     // Get the second positional argument as the index
-    std::string indexStr = cfg.get_positional_argument(1).value_or("0");
-    unsigned int i = std::stoi(indexStr);
+    std::string indexStr = cfg.get_positional_argument(1).value_or("");
+    if (indexStr.empty())
+    {
+        throw std::runtime_error("Missing quote ID. Usage: quotes get <id>");
+    }
+
+    unsigned int i;
+    try
+    {
+        i = std::stoi(indexStr);
+    }
+    catch (const std::invalid_argument &e)
+    {
+        throw std::runtime_error("Invalid quote ID: " + indexStr + ". Please provide a valid number.");
+    }
+    catch (const std::out_of_range &e)
+    {
+        throw std::runtime_error("Quote ID out of range: " + indexStr + ". Please provide a valid number.");
+    }
 
     // Get a random quote and write it to stdout
     if (cfg.plain)
@@ -143,7 +160,19 @@ void delete_quote(Config &cfg)
         throw std::runtime_error("Missing quote ID. Usage: quotes delete <id>");
     }
 
-    unsigned int index = std::stoi(indexStr);
+    unsigned int index;
+    try
+    {
+        index = std::stoi(indexStr);
+    }
+    catch (const std::invalid_argument &e)
+    {
+        throw std::runtime_error("Invalid quote ID: " + indexStr + ". Please provide a valid number.");
+    }
+    catch (const std::out_of_range &e)
+    {
+        throw std::runtime_error("Quote ID out of range: " + indexStr + ". Please provide a valid number.");
+    }
 
     quotes.delete_quote(index);
     quotes.write_file(cfg.filepath);

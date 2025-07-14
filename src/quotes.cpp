@@ -17,9 +17,9 @@ int Quotes::size() const
 
 Quote Quotes::get(unsigned int n)
 {
-    if (n > quotes.size())
+    if (n >= quotes.size())
     {
-        throw std::runtime_error("Index out of bounds: " + n);
+        throw std::out_of_range("Index out of bounds: " + std::to_string(n));
     }
     return quotes[n];
 }
