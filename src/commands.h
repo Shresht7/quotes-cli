@@ -18,4 +18,8 @@ void list_quotes(Config &cfg);
 /// @param cfg The configuration object.
 void create_quote(Config &cfg);
 
+/// @brief Opens the quotes source file using the OS's default application.
+/// @param cfg The configuration object.
+void edit_quotes(Config &cfg);
+
 #endif // COMMANDS_H

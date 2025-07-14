@@ -51,6 +51,10 @@ int main(int argc, char *argv[])
         {
             create_quote(*cfg);
         }
+        else if (subcommand == "edit" || subcommand == "open")
+        {
+            edit_quotes(*cfg);
+        }
         else if (subcommand == "help")
         {
             print_help();

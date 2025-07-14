@@ -113,3 +113,21 @@ void create_quote(Config &cfg)
 
     std::cout << "Quote added successfully!\tID: " << quotes.size() - 1 << std::endl;
 }
+
+void edit_quotes(Config &cfg)
+{
+    std::string command;
+#ifdef _WIN32
+    command = "start " + resolve_path(cfg.filepath).string();
+#elif __APPLE__
+    command = "open " + resolve_path(cfg.filepath).string();
+#else
+    command = "xdg-open " + resolve_path(cfg.filepath).string();
+#endif
+
+    int result = system(command.c_str());
+    if (result != 0)
+    {
+        throw std::runtime_error("Failed to open file: " + resolve_path(cfg.filepath).string());
+    }
+}
