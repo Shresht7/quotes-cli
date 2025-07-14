@@ -155,9 +155,24 @@ std::string escape_csv(const std::string &s)
     size_t pos = 0;
     while ((pos = escaped_s.find('"', pos)) != std::string::npos)
     {
-        escaped_s.replace(pos, 1, ""
-                                  "");
+        escaped_s.replace(pos, 1, """");
         pos += 2;
     }
     return escaped_s;
+}
+
+std::string get_config_dir()
+{
+    std::filesystem::path config_dir;
+    const char *home = get_home();
+    if (home)
+    {
+        config_dir = std::filesystem::path(home) / ".config" / "quotes-cli";
+    }
+
+    if (!config_dir.empty())
+    {
+        std::filesystem::create_directories(config_dir);
+    }
+    return config_dir.string();
 }

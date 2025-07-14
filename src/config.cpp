@@ -129,7 +129,12 @@ Config::Config() : filepath("~/Data/quotes.csv"),
                    surround_with_quotes(false),
                    output_format("plain")
 {
-    load_from_file("config.json");
+    // Load configuration from file
+    std::filesystem::path config_path = get_config_dir();
+    if (!config_path.empty())
+    {
+        load_from_file((config_path / "config.json").string());
+    }
 }
 
 // Parse command-line arguments and update the configuration
