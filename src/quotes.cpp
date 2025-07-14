@@ -161,26 +161,50 @@ void Quotes::write_file(const std::string &filepath)
 
 void Quotes::write_csv(const std::string &filepath)
 {
-    std::ofstream file(filepath);
-    if (!file.is_open())
+    std::ostream *output_stream;
+    if (filepath == "-")
     {
-        throw std::runtime_error("Unable to open CSV file for writing: " + filepath);
+        output_stream = &std::cout;
+    }
+    else
+    {
+        std::ofstream *file = new std::ofstream(filepath);
+        if (!file->is_open())
+        {
+            delete file;
+            throw std::runtime_error("Unable to open CSV file for writing: " + filepath);
+        }
+        output_stream = file;
     }
 
-    file << "quote,author\n"; // Write header
+    *output_stream << "quote,author\n"; // Write header
     for (const auto &q : quotes)
     {
-        file << "\"" << escape_csv(q.text) << "\",\"" << escape_csv(q.author) << "\"\n";
+        *output_stream << "\"" << escape_csv(q.text) << "\",\"" << escape_csv(q.author) << "\"\n";
     }
-    file.close();
+
+    if (filepath != "-")
+    {
+        delete static_cast<std::ofstream*>(output_stream);
+    }
 }
 
 void Quotes::write_json(const std::string &filepath)
 {
-    std::ofstream file(filepath);
-    if (!file.is_open())
+    std::ostream *output_stream;
+    if (filepath == "-")
     {
-        throw std::runtime_error("Unable to open JSON file for writing: " + filepath);
+        output_stream = &std::cout;
+    }
+    else
+    {
+        std::ofstream *file = new std::ofstream(filepath);
+        if (!file->is_open())
+        {
+            delete file;
+            throw std::runtime_error("Unable to open JSON file for writing: " + filepath);
+        }
+        output_stream = file;
     }
 
     json j_array = json::array();
@@ -192,6 +216,10 @@ void Quotes::write_json(const std::string &filepath)
         j_array.push_back(j_quote);
     }
 
-    file << j_array.dump(4); // Pretty print with 4 spaces
-    file.close();
+    *output_stream << j_array.dump(4); // Pretty print with 4 spaces
+
+    if (filepath != "-")
+    {
+        delete static_cast<std::ofstream*>(output_stream);
+    }
 }

@@ -53,10 +53,21 @@ void list_quotes(Config &cfg)
     Quotes quotes;
     quotes.read_file(cfg.filepath);
 
-    for (unsigned int i = 0; i < quotes.size(); ++i)
+    if (cfg.output_format == "csv")
     {
-        Quote q = quotes.get(i);
-        std::cout << i << ": " << q.text << " - " << q.author << std::endl;
+        quotes.write_csv("-"); // Use "-" to indicate stdout
+    }
+    else if (cfg.output_format == "json")
+    {
+        quotes.write_json("-"); // Use "-" to indicate stdout
+    }
+    else
+    {
+        for (unsigned int i = 0; i < quotes.size(); ++i)
+        {
+            Quote q = quotes.get(i);
+            std::cout << i << ": " << q.text << " - " << q.author << std::endl;
+        }
     }
 }
 

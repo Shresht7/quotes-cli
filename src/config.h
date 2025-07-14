@@ -52,6 +52,9 @@ public:
     /// @brief The author name provided via command-line argument
     std::string author_name;
 
+    /// @brief The output format for commands like 'list'
+    std::string output_format;
+
     // Default Constructor
     Config();
 

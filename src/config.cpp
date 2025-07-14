@@ -57,7 +57,8 @@ Config::Config() : filepath("~/Data/quotes.csv"),
                    border_color("Magenta"),
                    no_borders(false),
                    plain(false),
-                   surround_with_quotes(false)
+                   surround_with_quotes(false),
+                   output_format("plain")
 {
 }
 
@@ -187,6 +188,18 @@ int Config::parse_arguments(int argc, char *argv[])
             else
             {
                 author_name = "";
+            }
+        }
+        else if (arg == "--format")
+        {
+            if (i + 1 < argc)
+            {
+                output_format = argv[++i];
+            }
+            else
+            {
+                std::cerr << "Error: --format option requires an argument\n";
+                return EXIT_FAILURE;
             }
         }
         else if (arg[0] == '-')
