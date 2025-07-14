@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 # Set the project name
-project(quotes VERSION 1.0)
+project(quotes VERSION 0.3)
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 17)

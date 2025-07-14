@@ -10,7 +10,7 @@ using json = nlohmann::json;
 #include "helpers.h"
 
 /// Version number of the application
-const std::string VERSION = "v0.1.0";
+const std::string VERSION = "v0.3.0";
 
 void print_version()
 {
