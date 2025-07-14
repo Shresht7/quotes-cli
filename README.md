@@ -24,7 +24,6 @@ Subcommands:
   random                       Show a random quote
   get <id>                     Get a specific quote by ID
   list                         List all quotes
-      --format                    The format to use (`csv`, `json`, `default`)
   create                       Add a new quote
       --text                       The quote text (optional)
       --author                     The author name (optional)
@@ -43,6 +42,7 @@ Options:
   --quotes                     Surround the quote with quotation marks
   --no-borders                 Disables borders
   --no-color / --plain         Plain output
+  --format                    The format to use for the output (`csv`, `json`, `default`)
 
   -h, --help                   Show the help message
   -v, --version                Show the version number

@@ -16,13 +16,23 @@ void show_random_quote(Config &cfg)
     quotes.read_file(cfg.filepath);
 
     // Get a random quote and write it to stdout
-    if (cfg.plain)
+    Quote random_quote = quotes.get_random();
+
+    if (cfg.output_format == "csv")
     {
-        std::cout << cfg.format_quote(quotes.get_random()) << std::endl;
+        std::cout << cfg.format_quote_csv(random_quote) << std::endl;
+    }
+    else if (cfg.output_format == "json")
+    {
+        std::cout << cfg.format_quote_json(random_quote) << std::endl;
+    }
+    else if (cfg.plain)
+    {
+        std::cout << cfg.format_quote(random_quote) << std::endl;
     }
     else
     {
-        std::cout << cfg.format_styled_quote(quotes.get_random()) << std::endl;
+        std::cout << cfg.format_styled_quote(random_quote) << std::endl;
     }
 }
 
@@ -53,14 +63,22 @@ void get_quote(Config &cfg)
         throw std::runtime_error("Quote ID out of range: " + indexStr + ". Please provide a valid number.");
     }
 
-    // Get a random quote and write it to stdout
-    if (cfg.plain)
+    Quote quote = quotes.get(i);
+    if (cfg.output_format == "csv")
     {
-        std::cout << cfg.format_quote(quotes.get(i)) << std::endl;
+        std::cout << cfg.format_quote_csv(quote) << std::endl;
+    }
+    else if (cfg.output_format == "json")
+    {
+        std::cout << cfg.format_quote_json(quote) << std::endl;
+    }
+    else if (cfg.plain)
+    {
+        std::cout << cfg.format_quote(quote) << std::endl;
     }
     else
     {
-        std::cout << cfg.format_styled_quote(quotes.get(i)) << std::endl;
+        std::cout << cfg.format_styled_quote(quote) << std::endl;
     }
 }
 

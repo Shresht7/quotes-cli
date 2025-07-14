@@ -1,6 +1,9 @@
 #include <iostream>
 #include <sstream>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 #include "ansi.h"
 #include "config.h"
 #include "helpers.h"
@@ -20,7 +23,6 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [SUBCOMMAND] [OPTIONS]\n"
                                  "  random                       Show a random quote\n"
                                  "  get <id>                     Get a specific quote by ID\n"
                                  "  list                         List all quotes\n"
-                                 "      --format                    The format to use (`csv`, `json`, `default`)\n"
                                  "  create                       Add a new quote\n"
                                  "      --text                       The quote text (optional)\n"
                                  "      --author                     The author name (optional)\n"
@@ -39,6 +41,8 @@ const std::string HELP_MESSAGE = "\nUsage: quotes [SUBCOMMAND] [OPTIONS]\n"
                                  "  --quotes                     Surround the quote with quotation marks\n"
                                  "  --no-borders                 Disables borders\n"
                                  "  --no-color / --plain         Plain output\n"
+                                 "  --format                    The format to use for the output (`csv`, `json`, `default`)\n"
+
                                  "\n"
                                  "  -h, --help                   Show the help message\n"
                                  "  -v, --version                Show the version number\n"
@@ -288,4 +292,19 @@ std::string Config::format_styled_quote(const Quote &quote)
     oss << repeat("\n", margin);
 
     return oss.str();
+}
+
+std::string Config::format_quote_csv(const Quote &quote)
+{
+    std::ostringstream oss;
+    oss << "\"" << escape_csv(quote.text) << ",\"" << escape_csv(quote.author) << "\"";
+    return oss.str();
+}
+
+std::string Config::format_quote_json(const Quote &quote)
+{
+    json j_quote;
+    j_quote["quote"] = quote.text;
+    j_quote["author"] = quote.author;
+    return j_quote.dump(4);
 }

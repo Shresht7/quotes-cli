@@ -77,6 +77,16 @@ public:
     /// @param quote The quote object with the text and author fields
     /// @return A styled string fit for outputting to the console
     std::string format_styled_quote(const Quote &quote);
+
+    /// @brief Formats a single quote as a CSV string.
+    /// @param quote The quote object.
+    /// @return A CSV formatted string.
+    std::string format_quote_csv(const Quote &quote);
+
+    /// @brief Formats a single quote as a JSON string.
+    /// @param quote The quote object.
+    /// @return A JSON formatted string.
+    std::string format_quote_json(const Quote &quote);
 };
 
 #endif // CONFIG_H
