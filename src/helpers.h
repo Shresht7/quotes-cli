@@ -31,6 +31,10 @@ std::vector<std::string> split_csv_line(const std::string &line);
 /// @return The actual filesystem path
 std::filesystem::path resolve_path(const std::string &path);
 
+/// @brief Recursively creates directories like `mkdir -p`
+/// @param path The nested path whose ancestors we need to create
+void make_directories(const std::string &path);
+
 /// @brief Helper function to extract the file extension from a file path
 std::string get_file_extension(const std::string &filepath);
 

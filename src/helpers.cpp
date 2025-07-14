@@ -120,6 +120,16 @@ std::filesystem::path resolve_path(const std::string &path)
     return std::filesystem::path(home) / Location.relative_path();
 }
 
+void make_directories(const std::string &path)
+{
+    std::filesystem::path file_path_obj = path;
+    std::filesystem::path dir_path_obj = file_path_obj.parent_path();
+    if (!dir_path_obj.empty() && !std::filesystem::exists(dir_path_obj))
+    {
+        std::filesystem::create_directories(dir_path_obj);
+    }
+}
+
 std::string get_file_extension(const std::string &filepath)
 {
     size_t last_dot = filepath.find_last_of(".");
@@ -145,7 +155,8 @@ std::string escape_csv(const std::string &s)
     size_t pos = 0;
     while ((pos = escaped_s.find('"', pos)) != std::string::npos)
     {
-        escaped_s.replace(pos, 1, """");
+        escaped_s.replace(pos, 1, ""
+                                  "");
         pos += 2;
     }
     return escaped_s;

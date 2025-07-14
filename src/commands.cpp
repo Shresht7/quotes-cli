@@ -1,4 +1,5 @@
 #include <iostream>
+#include <filesystem>
 
 #include "config.h"
 #include "ansi.h"
@@ -62,7 +63,17 @@ void list_quotes(Config &cfg)
 void create_quote(Config &cfg)
 {
     Quotes quotes;
-    quotes.read_file(cfg.filepath);
+    try
+    {
+        quotes.read_file(cfg.filepath);
+    }
+    catch (const std::exception &e)
+    {
+        // Ensure the directory exists before trying to read/write the file
+        make_directories(cfg.filepath);
+        // Write the empty Quotes object to create an empty file
+        quotes.write_file(cfg.filepath);
+    }
 
     std::string quote_text;
     if (cfg.quote_text.empty())
