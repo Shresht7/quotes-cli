@@ -100,5 +100,5 @@ void create_quote(Config &cfg)
     quotes.add_quote({quote_text, author_name});
     quotes.write_file(cfg.filepath);
 
-    std::cout << "Quote added successfully!" << std::endl;
+    std::cout << "Quote added successfully!\tID: " << quotes.size() - 1 << std::endl;
 }
