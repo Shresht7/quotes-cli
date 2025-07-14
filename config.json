@@ -1,0 +1,12 @@
+{
+  "filepath": ".local/another.csv",
+  "style": "yellow",
+  "author_style": "green",
+  "border": "*",
+  "border_color": "blue",
+  "margin": 1,
+  "no_borders": false,
+  "plain": false,
+  "surround_with_quotes": true,
+  "output_format": "default"
+}
