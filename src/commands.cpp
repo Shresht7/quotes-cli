@@ -197,3 +197,69 @@ void delete_quote(Config &cfg)
 
     std::cout << "Quote deleted successfully!" << std::endl;
 }
+
+void search_quotes(Config &cfg)
+{
+    Quotes quotes;
+    quotes.read_file(cfg.filepath);
+
+    std::string search_keyword = cfg.get_positional_argument(1).value_or("");
+
+    // If no specific search flags are provided, use the positional argument as a general search keyword
+    if (cfg.quote_text.empty() && cfg.author_name.empty() && !search_keyword.empty())
+    {
+        cfg.quote_text = search_keyword;
+        cfg.author_name = search_keyword;
+    }
+
+    if (cfg.quote_text.empty() && cfg.author_name.empty())
+    {
+        throw std::runtime_error("Missing search keyword. Usage: quotes search <keyword> or quotes search --text <keyword> or quotes search --author <keyword>");
+    }
+
+    std::cout << "Search Results:" << std::endl;
+    bool found_any = false;
+    for (unsigned int i = 0; i < quotes.size(); ++i)
+    {
+        Quote q = quotes.get(i);
+        bool text_match = false;
+        bool author_match = false;
+
+        if (!cfg.quote_text.empty())
+        {
+            std::string lower_quote_text = to_lower(q.text);
+            std::string lower_search_text = to_lower(cfg.quote_text);
+            if (lower_quote_text.find(lower_search_text) != std::string::npos)
+            {
+                text_match = true;
+            }
+        }
+
+        if (!cfg.author_name.empty())
+        {
+            std::string lower_author_name = to_lower(q.author);
+            std::string lower_search_author = to_lower(cfg.author_name);
+            if (lower_author_name.find(lower_search_author) != std::string::npos)
+            {
+                author_match = true;
+            }
+        }
+
+        // If both text and author flags are provided, both must match.
+        // If only one is provided, that one must match.
+        // If no flags are provided, but a general keyword is, then either text or author must match.
+        if ((!cfg.quote_text.empty() && !cfg.author_name.empty() && (text_match || author_match)) ||
+            (!cfg.quote_text.empty() && cfg.author_name.empty() && text_match) ||
+            (cfg.quote_text.empty() && !cfg.author_name.empty() && author_match) ||
+            (search_keyword.empty() && (text_match || author_match)))
+        {
+            std::cout << i << ": " << q.text << " - " << q.author << std::endl;
+            found_any = true;
+        }
+    }
+
+    if (!found_any)
+    {
+        std::cout << "No quotes found matching your criteria." << std::endl;
+    }
+}

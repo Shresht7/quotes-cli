@@ -29,6 +29,9 @@ Subcommands:
       --author                     The author name (optional)
   edit                         Opens the data-source file in the default editor
   delete <id>                  Delete a specific quote by ID
+  search <keyword>             Search for quotes by keyword
+      --text                       Search only in quote text
+      --author                     Search only in author name
   help                         Show the help message
   version                      Show the version number
 

@@ -26,4 +26,8 @@ void edit_quotes(Config &cfg);
 /// @param cfg The configuration object.
 void delete_quote(Config &cfg);
 
+/// @brief Searches for quotes based on keywords.
+/// @param cfg The configuration object.
+void search_quotes(Config &cfg);
+
 #endif // COMMANDS_H

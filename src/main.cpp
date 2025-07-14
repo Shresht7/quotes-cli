@@ -59,6 +59,10 @@ int main(int argc, char *argv[])
         {
             delete_quote(*cfg);
         }
+        else if (subcommand == "search")
+        {
+            search_quotes(*cfg);
+        }
         else if (subcommand == "help")
         {
             print_help();
