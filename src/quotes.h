@@ -55,6 +55,10 @@ public:
     /// @param filepath The path to the CSV or JSON file to write to.
     void write_file(const std::string &filepath);
 
+    /// @brief Deletes a quote by its index.
+    /// @param index The index of the quote to delete.
+    void delete_quote(unsigned int index);
+
     void write_csv(const std::string &filepath);
     void write_json(const std::string &filepath);
 };

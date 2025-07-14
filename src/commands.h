@@ -22,4 +22,8 @@ void create_quote(Config &cfg);
 /// @param cfg The configuration object.
 void edit_quotes(Config &cfg);
 
+/// @brief Deletes a quote from the source file.
+/// @param cfg The configuration object.
+void delete_quote(Config &cfg);
+
 #endif // COMMANDS_H

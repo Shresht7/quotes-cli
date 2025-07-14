@@ -131,3 +131,22 @@ void edit_quotes(Config &cfg)
         throw std::runtime_error("Failed to open file: " + resolve_path(cfg.filepath).string());
     }
 }
+
+void delete_quote(Config &cfg)
+{
+    Quotes quotes;
+    quotes.read_file(cfg.filepath);
+
+    std::string indexStr = cfg.get_positional_argument(1).value_or("");
+    if (indexStr.empty())
+    {
+        throw std::runtime_error("Missing quote ID. Usage: quotes delete <id>");
+    }
+
+    unsigned int index = std::stoi(indexStr);
+
+    quotes.delete_quote(index);
+    quotes.write_file(cfg.filepath);
+
+    std::cout << "Quote deleted successfully!" << std::endl;
+}

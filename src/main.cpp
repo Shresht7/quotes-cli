@@ -55,6 +55,10 @@ int main(int argc, char *argv[])
         {
             edit_quotes(*cfg);
         }
+        else if (subcommand == "delete")
+        {
+            delete_quote(*cfg);
+        }
         else if (subcommand == "help")
         {
             print_help();
