@@ -98,7 +98,7 @@ void list_quotes(Config &cfg)
     }
     else
     {
-        for (unsigned int i = 0; i < quotes.size(); ++i)
+        for (unsigned int i = 0; i < quotes.count(); ++i)
         {
             Quote q = quotes.get(i);
             std::cout << i << ": " << q.text << " - " << q.author << std::endl;
@@ -146,7 +146,7 @@ void create_quote(Config &cfg)
     quotes.add_quote({quote_text, author_name});
     quotes.write_file(cfg.filepath);
 
-    std::cout << "Quote added successfully!\tID: " << quotes.size() - 1 << std::endl;
+    std::cout << "Quote added successfully!\tID: " << quotes.count() - 1 << std::endl;
 }
 
 void edit_quotes(Config &cfg)
@@ -219,7 +219,7 @@ void search_quotes(Config &cfg)
 
     std::cout << "Search Results:" << std::endl;
     bool found_any = false;
-    for (unsigned int i = 0; i < quotes.size(); ++i)
+    for (unsigned int i = 0; i < quotes.count(); ++i)
     {
         Quote q = quotes.get(i);
         bool text_match = false;

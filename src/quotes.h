@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-// Define a struct to store quotes and authors
+// A struct to group quotes and their authors
 struct Quote
 {
     std::string text;
@@ -28,8 +28,8 @@ private:
 public:
     Quotes() = default;
 
-    /// @return The size of the list of all quotes
-    int size() const;
+    /// @return The total number of quotes
+    int count() const;
 
     /// @brief Retrieves a single quote from the vector
     /// @param n The index of the quote
@@ -59,7 +59,12 @@ public:
     /// @param index The index of the quote to delete.
     void delete_quote(unsigned int index);
 
+    /// @brief Writes the current quotes to a CSV file or stdout.
+    /// @param filepath The path to the CSV file to write to. Use "-" for stdout.
     void write_csv(const std::string &filepath);
+
+    /// @brief Writes the current quotes to a JSON file or stdout.
+    /// @param filepath The path to the JSON file to write to. Use "-" for stdout.
     void write_json(const std::string &filepath);
 };
 

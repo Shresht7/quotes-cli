@@ -4,20 +4,20 @@
 #include <stdexcept>
 #include <cstdlib>
 
-#include <nlohmann/json.hpp> // Include the JSON library
+#include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
 #include "helpers.h"
 #include "quotes.h"
 
-int Quotes::size() const
+int Quotes::count() const
 {
     return quotes.size();
 }
 
 Quote Quotes::get(unsigned int n)
 {
-    if (n >= quotes.size())
+    if (n < 0 || n >= quotes.size())
     {
         throw std::out_of_range("Index out of bounds: " + std::to_string(n));
     }
@@ -185,7 +185,7 @@ void Quotes::write_csv(const std::string &filepath)
 
     if (filepath != "-")
     {
-        delete static_cast<std::ofstream*>(output_stream);
+        delete static_cast<std::ofstream *>(output_stream);
     }
 }
 
@@ -220,7 +220,7 @@ void Quotes::write_json(const std::string &filepath)
 
     if (filepath != "-")
     {
-        delete static_cast<std::ofstream*>(output_stream);
+        delete static_cast<std::ofstream *>(output_stream);
     }
 }
 
