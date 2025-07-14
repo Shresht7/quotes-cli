@@ -167,6 +167,28 @@ int Config::parse_arguments(int argc, char *argv[])
             print_version();
             return EXIT_FAILURE;
         }
+        else if (arg == "--text")
+        {
+            if (i + 1 < argc)
+            {
+                quote_text = argv[++i];
+            }
+            else
+            {
+                quote_text = "";
+            }
+        }
+        else if (arg == "--author")
+        {
+            if (i + 1 < argc)
+            {
+                author_name = argv[++i];
+            }
+            else
+            {
+                author_name = "";
+            }
+        }
         else if (arg[0] == '-')
         {
             // At this point, this is an unrecognized flag/option

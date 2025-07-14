@@ -46,6 +46,12 @@ public:
     /// @brief Indicates whether to surround the quote with quotation marks
     bool surround_with_quotes;
 
+    /// @brief The quote text provided via command-line argument
+    std::string quote_text;
+
+    /// @brief The author name provided via command-line argument
+    std::string author_name;
+
     // Default Constructor
     Config();
 

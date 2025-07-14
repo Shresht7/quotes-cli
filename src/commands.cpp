@@ -52,9 +52,10 @@ void list_quotes(Config &cfg)
     Quotes quotes;
     quotes.read_file(cfg.filepath);
 
-    for (auto q : quotes.all())
+    for (unsigned int i = 0; i < quotes.size(); ++i)
     {
-        std::cout << q.text << " - " << q.author << std::endl;
+        Quote q = quotes.get(i);
+        std::cout << i << ": " << q.text << " - " << q.author << std::endl;
     }
 }
 
@@ -63,13 +64,27 @@ void create_quote(Config &cfg)
     Quotes quotes;
     quotes.read_file(cfg.filepath);
 
-    std::cout << "Enter quote: ";
     std::string quote_text;
-    std::getline(std::cin, quote_text);
+    if (cfg.quote_text.empty())
+    {
+        std::cout << "Enter quote: ";
+        std::getline(std::cin, quote_text);
+    }
+    else
+    {
+        quote_text = cfg.quote_text;
+    }
 
-    std::cout << "Enter author: ";
     std::string author_name;
-    std::getline(std::cin, author_name);
+    if (cfg.author_name.empty())
+    {
+        std::cout << "Enter author: ";
+        std::getline(std::cin, author_name);
+    }
+    else
+    {
+        author_name = cfg.author_name;
+    }
 
     quotes.add_quote({quote_text, author_name});
     quotes.write_file(cfg.filepath);
