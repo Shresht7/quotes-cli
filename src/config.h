@@ -18,6 +18,9 @@ private:
     /// @brief The vector of positional arguments
     std::vector<std::string> args;
 
+    /// @brief Loads configuration from a JSON file
+    void load_from_file(const std::string &config_path);
+
 public:
     /// @brief The path to the source file containing the quotes
     std::string filepath;

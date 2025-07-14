@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
@@ -60,6 +61,62 @@ void print_help()
     std::cout << HELP_MESSAGE << std::endl;
 }
 
+void Config::load_from_file(const std::string &config_path)
+{
+    std::ifstream config_file(config_path);
+    if (!config_file.is_open())
+    {
+        return;
+    }
+
+    try
+    {
+        json config_json;
+        config_file >> config_json;
+
+        if (config_json.contains("filepath"))
+        {
+            filepath = config_json["filepath"];
+        }
+        if (config_json.contains("style"))
+        {
+            style = config_json["style"];
+        }
+        if (config_json.contains("author_style"))
+        {
+            author_style = config_json["author_style"];
+        }
+        if (config_json.contains("border"))
+        {
+            border = config_json["border"];
+        }
+        if (config_json.contains("border_color"))
+        {
+            border_color = config_json["border_color"];
+        }
+        if (config_json.contains("margin"))
+        {
+            margin = config_json["margin"];
+        }
+        if (config_json.contains("no_borders"))
+        {
+            no_borders = config_json["no_borders"];
+        }
+        if (config_json.contains("surround_with_quotes"))
+        {
+            surround_with_quotes = config_json["surround_with_quotes"];
+        }
+        if (config_json.contains("output_format"))
+        {
+            output_format = config_json["output_format"];
+        }
+    }
+    catch (const json::parse_error &e)
+    {
+        std::cerr << "Error parsing configuration file: " << e.what() << std::endl;
+    }
+}
+
 // Default constructor
 Config::Config() : filepath("~/Data/quotes.csv"),
                    border("="),
@@ -72,11 +129,20 @@ Config::Config() : filepath("~/Data/quotes.csv"),
                    surround_with_quotes(false),
                    output_format("plain")
 {
+    // Load configuration from file
+    std::filesystem::path config_path = get_config_dir();
+    if (!config_path.empty())
+    {
+        load_from_file((config_path / "config.json").string());
+    }
 }
 
 // Parse command-line arguments and update the configuration
 int Config::parse_arguments(int argc, char *argv[])
 {
+    // Create a temporary Config object to store the default values
+    Config default_config;
+
     for (int i = 1; i < argc; ++i)
     {
         std::string arg = argv[i];

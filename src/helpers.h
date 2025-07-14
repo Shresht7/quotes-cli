@@ -47,4 +47,8 @@ bool is_output_redirected();
 /// @return The escaped string.
 std::string escape_csv(const std::string &s);
 
+/// @brief Gets the configuration directory for the application.
+/// @return The path to the configuration directory.
+std::string get_config_dir();
+
 #endif // HELPERS_H

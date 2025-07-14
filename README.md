@@ -58,6 +58,30 @@ Examples:
 
 ---
 
+## ⚙️ Configuration
+
+The application can be configured using a `config.json` file located at `~/.config/quotes-cli/config.json` on all operating systems.
+
+This file allows you to set default values for the various styling and output options. Command-line arguments will always override the settings in the config file.
+
+Example (`config.json`):
+
+```json
+{
+  "filepath": "~/Documents/my-quotes.csv",
+  "style": "italic,yellow",
+  "author_style": "green",
+  "border": "*",
+  "border_color": "blue",
+  "margin": 1,
+  "no_borders": false,
+  "surround_with_quotes": true,
+  "output_format": "default"
+}
+```
+
+---
+
 ## 📂 Source File Format
 
 The application supports two file formats for quotes: CSV and JSON.
